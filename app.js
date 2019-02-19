@@ -25,7 +25,7 @@
 // no matter where we actually lift from.
 // > Note: This is not required in order to lift, but it is a convenient default.
 process.chdir(__dirname);
-//test
+//test 1332
 
 
 // Attempt to import `sails` dependency, as well as `rc` (for loading `.sailsrc` files).
