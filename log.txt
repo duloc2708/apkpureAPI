@@ -1,3 +1,91 @@
-Append the string whatever you want at top
-getAllListOther: RequestError: Invalid column name 'STATaaUS'. 
-
+resError>>>>> - 2019-02-17 15:07:03: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:07:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:07:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:07:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:06:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:06:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:06:01: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:06:01: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:05:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:05:01: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:05:01: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:05:01: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:04:03: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:04:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:04:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:03:03: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:03:03: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:03:03: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:03:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:02:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:02:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:02:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:02:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:01:04: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:01:04: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:01:04: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:01:04: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:00:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:00:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:00:01: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 15:00:01: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 14:59:03: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 14:59:03: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 14:59:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 14:59:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 14:58:03: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 14:58:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 14:58:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 14:58:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 14:57:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 14:57:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 14:57:01: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 14:57:01: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 14:56:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 14:56:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 14:56:01: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 14:56:01: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 14:55:02: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 14:55:01: "TITLE_EXISTS"
+resError>>>>> - 2019-02-17 14:55:01: "TITLE_EXISTS"
+resError>>>>> - 2019-02-16 12:58:55: "USERS_DO_NOT_EXSITS"
+resError>>>>> - 2019-02-16 12:55:24: "USERS_DO_NOT_EXSITS"
+resError>>>>> - 2019-02-15 10:07:34: {"code":"E_QUERY_FAILED","footprint":{"identity":"catchall"},"raw":{"error":{"code":"ER_SP_DOES_NOT_EXIST","errno":1305,"sqlMessage":"PROCEDURE db_new_sql.articles_getAllData does not exist","sqlState":"42000","index":0,"sql":"CALL articles_getAllData"}}}
+resError>>>>> - 2019-02-15 10:07:26: {"code":"E_QUERY_FAILED","footprint":{"identity":"catchall"},"raw":{"error":{"code":"ER_SP_DOES_NOT_EXIST","errno":1305,"sqlMessage":"PROCEDURE db_new_sql.articles_getAllData does not exist","sqlState":"42000","index":0,"sql":"CALL articles_getAllData"}}}
+resError>>>>> - 2019-02-15 09:27:51: {"name":"Exception","code":"failed","exit":"failed","traceRef":{},"raw":{"error":{"code":"ECONNREFUSED","errno":"ECONNREFUSED","syscall":"connect","address":"54.255.181.96","port":3306,"fatal":true}}}
+resError>>>>> - 2019-02-15 09:27:50: {"name":"Exception","code":"failed","exit":"failed","traceRef":{},"raw":{"error":{"code":"ECONNREFUSED","errno":"ECONNREFUSED","syscall":"connect","address":"54.255.181.96","port":3306,"fatal":true}}}
+resError>>>>> - 2019-02-15 09:27:09: {"name":"Exception","code":"failed","exit":"failed","traceRef":{},"raw":{"error":{"code":"ECONNREFUSED","errno":"ECONNREFUSED","syscall":"connect","address":"54.255.181.96","port":3306,"fatal":true}}}
+resError>>>>> - 2019-02-15 09:27:06: {"name":"Exception","code":"failed","exit":"failed","traceRef":{},"raw":{"error":{"code":"ECONNREFUSED","errno":"ECONNREFUSED","syscall":"connect","address":"54.255.181.96","port":3306,"fatal":true}}}
+resError>>>>> - 2019-02-15 08:28:52: {"name":"Exception","code":"failed","exit":"failed","traceRef":{},"raw":{"error":{"code":"ECONNREFUSED","errno":"ECONNREFUSED","syscall":"connect","address":"54.255.181.96","port":3306,"fatal":true}}}
+resError>>>>> - 2019-02-15 08:27:58: {"name":"Exception","code":"failed","exit":"failed","traceRef":{},"raw":{"error":{"code":"ECONNREFUSED","errno":"ECONNREFUSED","syscall":"connect","address":"54.255.181.96","port":3306,"fatal":true}}}
+resError>>>>> - 2019-02-15 08:26:20: {"code":"E_NOT_SUPPORTED"}
+resError>>>>> - 2019-02-15 08:01:07: "TITLE_EXISTS"
+resError>>>>> - 2019-02-15 08:00:28: "TITLE_EXISTS"
+resError>>>>> - 2019-02-15 07:59:15: "TITLE_EXISTS"
+resError>>>>> - 2019-02-15 07:58:52: "TITLE_EXISTS"
+resError>>>>> - 2019-02-15 07:58:43: "TITLE_EXISTS"
+resError>>>>> - 2019-02-15 07:58:29: "TITLE_EXISTS"
+resError>>>>> - 2019-02-15 07:56:43: "TypeError: Cannot read property 'id' of undefined"
+resError>>>>> - 2019-02-15 07:56:19: {}
+resError>>>>> - 2019-02-15 07:55:52: {}
+resError>>>>> - 2019-02-15 07:54:35: ""
+resError>>>>> - 2019-02-15 07:51:45: {}
+resError>>>>> - 2019-02-15 07:49:46: {}
+resError>>>>> - 2019-02-15 07:49:10: {}
+resError>>>>> - 2019-02-15 07:45:22: {}
+resError>>>>> - 2019-02-15 04:47:16: "CẠP NHAT"
+resError>>>>> - 2019-02-15 04:46:49: "TITLE_EXISTS"
+resError>>>>> - 2019-02-15 04:22:55: "USERS_DO_NOT_EXSITS"
+resError>>>>> - 2019-02-15 04:22:46: "USERS_DO_NOT_EXSITS"
+resError>>>>> - 2019-02-15 04:22:44: "USERS_DO_NOT_EXSITS"
+resError>>>>> - 2019-02-15 04:22:43: "USERS_DO_NOT_EXSITS"
+resError>>>>> - 2019-02-15 03:44:25: {"errno":-21,"code":"EISDIR","syscall":"open","path":"assets/images/"}
+resError>>>>> - 2019-02-15 03:43:49: {"errno":-21,"code":"EISDIR","syscall":"open","path":"assets/images/"}
+resError>>>>> - 2019-02-15 03:16:51: "TITLE_EXISTS"
+resError>>>>> - 2019-02-15 03:15:19: "TITLE_EXISTS"
+resError>>>>> - 2019-02-15 00:01:44: "TITLE_EXISTS"
+resError>>>>> - 2019-02-14 23:46:49: {"name":"AdapterError","adapterMethodName":"create","modelIdentity":"articles","raw":{"code":"ER_TRUNCATED_WRONG_VALUE","errno":1292,"sqlMessage":"Incorrect datetime value: '1550188001897' for column 'time_up' at row 1","sqlState":"22007","index":0,"sql":"insert into `articles` (`atr10`, `atr3`, `atr4`, `atr5`, `atr6`, `atr7`, `atr8`, `atr9`, `content_long`, `content_short`, `createdAt`, `created_by`, `levels`, `link down`, `numChar`, `numWord`, `source`, `status`, `tags`, `thumbnail`, `time_up`, `title`, `title_slug`, `type`, `updatedAt`, `url`, `view`) values ('', '', '', '', '', '', '', '', '<p>faw</p>', '', 1550188009465, '', '', '', '3', '1', '', 'active', '', '', 1550188001897, 'fafaw', 'fafaw', '', 1550188009465, '', '0')"}}
+resError>>>>> - 2019-02-13 07:17:23: "TITLE_EXISTS"
+resError>>>>> - 2019-02-13 07:14:14: "TITLE_EXISTS"
+resError>>>>> - 2019-02-13 07:11:00: {"name":"AdapterError","adapterMethodName":"create","modelIdentity":"articles","raw":{"code":"ER_TRUNCATED_WRONG_VALUE","errno":1292,"sqlMessage":"Incorrect datetime value: '' for column 'time_up' at row 1","sqlState":"22007","index":0,"sql":"insert into `articles` (`atr10`, `atr3`, `atr4`, `atr5`, `atr6`, `atr7`, `atr8`, `atr9`, `content_long`, `content_short`, `createdAt`, `created_by`, `levels`, `link down`, `numChar`, `numWord`, `source`, `status`, `tags`, `thumbnail`, `time_up`, `title`, `title_slug`, `type`, `updatedAt`, `url`, `view`) values ('', '', '', '', '', '', '', '', '', '', 1550041860404, '', '0', '', '0', '0', '', '', '', '', '', 'fawfawa', '', '', 1550041860404, '', '0')"}}
+resError>>>>> - 2019-02-13 04:08:16: {"code":"E_QUERY_FAILED","footprint":{"identity":"catchall"},"raw":{"error":{"code":"ER_SP_DOES_NOT_EXIST","errno":1305,"sqlMessage":"PROCEDURE db_new_sql.articles_getAllData2 does not exist","sqlState":"42000","index":0,"sql":"CALL articles_getAllData2"}}}
