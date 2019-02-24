@@ -30,6 +30,28 @@ module.exports = {
             resError(res, err.toString())
         }
     },
+    'getBlogDetail': (req, res) => {
+        let { title_slug } = req.query        
+        try {
+            Articles.getDatastore().sendNativeQuery(`CALL artcles_getBlogDetail('${title_slug}')`, [], (err, data) => {
+                if (err) return resError(res, err)
+                resSuccess(res, '', data.rows[0])
+            });
+        } catch (err) {
+            resError(res, err.toString())
+        }
+    },
+    'getBlogBySection': (req, res) => {
+        let { type } = req.query
+        try {
+            Articles.getDatastore().sendNativeQuery(`CALL artcles_getBlogBySection('${type}')`, [], (err, data) => {
+                if (err) return resError(res, err)
+                resSuccess(res, '', data.rows[0])
+            });
+        } catch (err) {
+            resError(res, err.toString())
+        }
+    },
     'autoAddArticles': (req, res) => {
         let { title, list_image, title_slug, id, tags } = req.body
         Articles.find({ title: title }).exec((err, usr) => {

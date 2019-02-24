@@ -6,6 +6,8 @@ module.exports.policies = {
     'autoAddArticles': true
   },
   'ArticlesController': {
-    'autoAddArticles': true
+    'autoAddArticles': true,
+    'getBlogBySection': true,
+    'getBlogDetail': true
   }
 };
