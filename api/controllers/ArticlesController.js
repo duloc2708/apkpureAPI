@@ -10,13 +10,8 @@ module.exports = {
     'getFileAPK': (req, res) => {
         let { namefile } = req.query
         try {
-            var file = 'game_down/' + 'Crazy_for_Speed_APK.apk';
-            console.log('file>>>>>',file);
-            
-            var filename = path.basename(file);
-            console.log('file>>>>>',filename);
-
-            res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+            var file = 'game_down/' + `${namefile}.apk`;
+            res.setHeader('Content-disposition', 'attachment; filename=' + namefile);
             res.setHeader('Content-type', 'apk');
             var filestream = fs.createReadStream(file);
             filestream.pipe(res);
