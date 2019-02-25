@@ -89,8 +89,13 @@ exports.Data = function () {
             //   link_down: 'https://apkpure.com' + link_down,
             //   category: category,
             //   category_name: category_name
-            // });
-            console.log('convertSlug(title)>', convertSlug(title));
+            // })
+            let mineType = ''
+            if ($detail('.ny-down').text().trim().indexOf('XAPK') != -1) {
+              mineType = '.xapk'
+            } else {
+              mineType = '.apk'
+            }
 
             let options2 = {
               url: 'http://localhost:1337/api/articles/auto',
@@ -111,7 +116,8 @@ exports.Data = function () {
                 "numChar": "0",
                 "levels": "0",
                 "atr1": 'https://apkpure.com' + link_down,
-                "atr2": convertSlug(title)
+                "atr2": convertSlug(title),
+                "atr3": mineType
               },
               resolveWithFullResponse: true,
               gzip: true,
@@ -129,7 +135,7 @@ exports.Data = function () {
 
                 let fileGame = title.replace(/\s/g, "_");
                 fileGame = fileGame.trim()
-                const pathDown = 'game_down/' + convertSlug(title) + '.apk'
+                const pathDown = 'game_down/' + convertSlug(title) + mineType
                 // kiểm tra tồn tại file
                 fs.access(pathDown, fs.F_OK, (errFile) => {
                   if (errFile) {
@@ -144,7 +150,6 @@ exports.Data = function () {
                       .then(function (result2) {
                         let $detail2 = result2;
                         let hrefDown = $detail2('#download_link').attr('href');
-                        console.log('LINK DOWN', hrefDown)
                         var pre = '----';
                         const downloadManager = function (url, filename) {
                           progress(request(url), {
@@ -168,6 +173,8 @@ exports.Data = function () {
                   }
                   //file exists
                 })
+
+
                 // //  ----------------------END tải game
 
               })
