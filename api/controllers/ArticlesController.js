@@ -4,16 +4,20 @@ var multer = require('multer');
 var fs = require("fs")
 let mkdirp = require('mkdirp');
 let mime = require('mime');
+let path=require("path")
 const pathUploadImage = 'assets/images/'
 module.exports = {
     'getFileAPK': (req, res) => {
         let { namefile } = req.query
         try {
-            var file = __dirname + 'game_down/' + 'Highway_Sniper_2019_APK.apk';
+            var file = 'game_down/' + 'Crazy_for_Speed_APK.apk';
+            console.log('file>>>>>',file);
+            
             var filename = path.basename(file);
-            var mimetype = mime.lookup(file);
+            console.log('file>>>>>',filename);
+
             res.setHeader('Content-disposition', 'attachment; filename=' + filename);
-            res.setHeader('Content-type', mimetype);
+            res.setHeader('Content-type', 'apk');
             var filestream = fs.createReadStream(file);
             filestream.pipe(res);
         } catch (err) {
