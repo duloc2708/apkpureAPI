@@ -4,17 +4,26 @@ var multer = require('multer');
 var fs = require("fs")
 let mkdirp = require('mkdirp');
 let mime = require('mime');
-let path=require("path")
+let path = require("path")
 const pathUploadImage = 'assets/images/'
 module.exports = {
     'getFileAPK': (req, res) => {
         let { namefile } = req.query
         try {
             var file = 'game_down/' + `${namefile}.apk`;
-            res.setHeader('Content-disposition', 'attachment; filename=' + namefile);
-            res.setHeader('Content-type', 'apk');
-            var filestream = fs.createReadStream(file);
-            filestream.pipe(res);
+            // res.setHeader('Content-disposition', 'attachment; filename=' + namefile);
+            // res.setHeader('Content-type', 'application/vnd.android.package-archive');
+            // var filestream = fs.createReadStream(file);
+            // filestream.pipe(res);
+            // filestream.on('end',function(){
+            //     res.end()
+            // })
+            res.download(file); 
+            // var file = 'game_down/' + `${namefile}.apk`;
+            // res.setHeader('Content-disposition', 'attachment; filename=' + namefile);
+            // res.setHeader('Content-type', 'apk');
+            // var filestream = fs.createReadStream(file);
+            // filestream.pipe(res);
         } catch (err) {
             resError(res, err.toString())
         }
@@ -30,7 +39,7 @@ module.exports = {
         }
     },
     'getBlogDetail': (req, res) => {
-        let { title_slug } = req.query        
+        let { title_slug } = req.query
         try {
             Articles.getDatastore().sendNativeQuery(`CALL artcles_getBlogDetail('${title_slug}')`, [], (err, data) => {
                 if (err) return resError(res, err)
