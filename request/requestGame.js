@@ -70,26 +70,6 @@ exports.Data = function () {
               }
             }).get();
 
-            // lstArticles.push({
-            //   list_image: list_arr,
-            //   title: title,
-            //   image: avatar,
-            //   image_large: img_large,
-            //   type: category,
-            //   type_code: category,
-            //   group: 'slide',
-            //   app_game: 'game',
-            //   content_short: title,
-            //   content_long: content_long,
-            //   version: version.trim(),
-            //   device: 'Android',
-            //   average_rating: average_rating,
-            //   average_best: average_best,
-            //   developer: developer.trim(),
-            //   link_down: 'https://apkpure.com' + link_down,
-            //   category: category,
-            //   category_name: category_name
-            // })
             let mineType = ''
             if ($detail('.ny-down').text().trim().indexOf('XAPK') != -1) {
               mineType = '.xapk'
@@ -97,13 +77,15 @@ exports.Data = function () {
               mineType = '.apk'
             }
 
+            console.log('link_thumbnail>>>>>>>',avatar);
+            
             let options2 = {
               url: 'http://localhost:1337/api/articles/auto',
               json: true,
               body: {
                 "title": title,
                 "title_slug": convertSlug(title),
-                "thumbnail": img_large,
+                "thumbnail": avatar,
                 "type": category,
                 "tags": category,
                 "view": "0",
@@ -117,7 +99,8 @@ exports.Data = function () {
                 "levels": "0",
                 "atr1": 'https://apkpure.com' + link_down,
                 "atr2": convertSlug(title),
-                "atr3": mineType
+                "atr3": mineType,
+                "atr4": img_large
               },
               resolveWithFullResponse: true,
               gzip: true,
@@ -137,42 +120,42 @@ exports.Data = function () {
                 fileGame = fileGame.trim()
                 const pathDown = 'game_down/' + convertSlug(title) + mineType
                 // kiểm tra tồn tại file
-                fs.access(pathDown, fs.F_OK, (errFile) => {
-                  if (errFile) {
-                    let optionsDown = {
-                      uri: 'https://apkpure.com' + link_down,
-                      transform: function (dataLink) {
-                        return cheerio.load(dataLink);
-                      }
-                    };
-                    console.log('BẮT ĐẦU TẢI', pathDown)
-                    rpdetail(optionsDown)
-                      .then(function (result2) {
-                        let $detail2 = result2;
-                        let hrefDown = $detail2('#download_link').attr('href');
-                        var pre = '----';
-                        const downloadManager = function (url, filename) {
-                          progress(request(url), {
-                            throttle: 500
-                          }).on('progress', function (state) {
-                            process.stdout.write(pre + '' + (Math.round(state.percent * 100)) + "%");
-                          })
-                            .on('error', function (err) {
-                              console.log('error :( ' + err);
-                            })
-                            .on('end', function () {
-                              console.log(pre + '100% \n Download Completed');
-                            })
-                            .pipe(fs.createWriteStream(filename));
-                        };
+                // fs.access(pathDown, fs.F_OK, (errFile) => {
+                //   if (errFile) {
+                //     let optionsDown = {
+                //       uri: 'https://apkpure.com' + link_down,
+                //       transform: function (dataLink) {
+                //         return cheerio.load(dataLink);
+                //       }
+                //     };
+                //     console.log('BẮT ĐẦU TẢI', pathDown)
+                //     rpdetail(optionsDown)
+                //       .then(function (result2) {
+                //         let $detail2 = result2;
+                //         let hrefDown = $detail2('#download_link').attr('href');
+                //         var pre = '----';
+                //         const downloadManager = function (url, filename) {
+                //           progress(request(url), {
+                //             throttle: 500
+                //           }).on('progress', function (state) {
+                //             process.stdout.write(pre + '' + (Math.round(state.percent * 100)) + "%");
+                //           })
+                //             .on('error', function (err) {
+                //               console.log('error :( ' + err);
+                //             })
+                //             .on('end', function () {
+                //               console.log(pre + '100% \n Download Completed');
+                //             })
+                //             .pipe(fs.createWriteStream(filename));
+                //         };
 
 
-                        downloadManager(hrefDown, pathDown);
-                      })
-                    return
-                  }
-                  //file exists
-                })
+                //         downloadManager(hrefDown, pathDown);
+                //       })
+                //     return
+                //   }
+                //   //file exists
+                // })
 
 
                 // //  ----------------------END tải game

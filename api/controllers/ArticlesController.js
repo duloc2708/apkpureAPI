@@ -61,10 +61,16 @@ module.exports = {
         }
     },
     'autoAddArticles': (req, res) => {
-        let { title, list_image, title_slug, id, tags } = req.body
+        let { title, list_image, title_slug, id, tags, atr4, thumbnail } = req.body
         Articles.find({ title: title }).exec((err, usr) => {
             if (err) return resError(res, err)
             if (usr.length > 0) return resError(res, 'TITLE_EXISTS')
+
+            let data = req.body
+            let type = thumbnail.split('.').pop();
+            let imageName = 'thumbnail_' + title_slug + '.' + type;
+            data.thumbnail = imageName
+
             Articles.create(req.body).exec((errInsert, result) => {
                 if (errInsert) {
                     resError(res, errInsert)
@@ -73,6 +79,10 @@ module.exports = {
                     resSuccess(res, '', [])
                 }
             });
+            //===========UPLOAD THUMBNAIL
+            if (thumbnail) {
+                saveFileImage(thumbnail, imageName, pathUploadImage)
+            }
         });
     },
     'addArticles': (req, res) => {
