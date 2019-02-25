@@ -8,9 +8,9 @@ let path = require("path")
 const pathUploadImage = 'assets/images/'
 module.exports = {
     'getFileAPK': (req, res) => {
-        let { namefile } = req.query
+        let { namefile, mineType } = req.query
         try {
-            var file = 'game_down/' + `${namefile}.apk`;
+            var file = 'game_down/' + `${namefile}${mineType}`;
             // res.setHeader('Content-disposition', 'attachment; filename=' + namefile);
             // res.setHeader('Content-type', 'application/vnd.android.package-archive');
             // var filestream = fs.createReadStream(file);
@@ -18,7 +18,7 @@ module.exports = {
             // filestream.on('end',function(){
             //     res.end()
             // })
-            res.download(file); 
+            res.download(file);
             // var file = 'game_down/' + `${namefile}.apk`;
             // res.setHeader('Content-disposition', 'attachment; filename=' + namefile);
             // res.setHeader('Content-type', 'apk');
