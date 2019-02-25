@@ -120,42 +120,42 @@ exports.Data = function () {
                 fileGame = fileGame.trim()
                 const pathDown = 'game_down/' + convertSlug(title) + mineType
                 // kiểm tra tồn tại file
-                // fs.access(pathDown, fs.F_OK, (errFile) => {
-                //   if (errFile) {
-                //     let optionsDown = {
-                //       uri: 'https://apkpure.com' + link_down,
-                //       transform: function (dataLink) {
-                //         return cheerio.load(dataLink);
-                //       }
-                //     };
-                //     console.log('BẮT ĐẦU TẢI', pathDown)
-                //     rpdetail(optionsDown)
-                //       .then(function (result2) {
-                //         let $detail2 = result2;
-                //         let hrefDown = $detail2('#download_link').attr('href');
-                //         var pre = '----';
-                //         const downloadManager = function (url, filename) {
-                //           progress(request(url), {
-                //             throttle: 500
-                //           }).on('progress', function (state) {
-                //             process.stdout.write(pre + '' + (Math.round(state.percent * 100)) + "%");
-                //           })
-                //             .on('error', function (err) {
-                //               console.log('error :( ' + err);
-                //             })
-                //             .on('end', function () {
-                //               console.log(pre + '100% \n Download Completed');
-                //             })
-                //             .pipe(fs.createWriteStream(filename));
-                //         };
+                fs.access(pathDown, fs.F_OK, (errFile) => {
+                  if (errFile) {
+                    let optionsDown = {
+                      uri: 'https://apkpure.com' + link_down,
+                      transform: function (dataLink) {
+                        return cheerio.load(dataLink);
+                      }
+                    };
+                    console.log('BẮT ĐẦU TẢI', pathDown)
+                    rpdetail(optionsDown)
+                      .then(function (result2) {
+                        let $detail2 = result2;
+                        let hrefDown = $detail2('#download_link').attr('href');
+                        var pre = '----';
+                        const downloadManager = function (url, filename) {
+                          progress(request(url), {
+                            throttle: 500
+                          }).on('progress', function (state) {
+                            process.stdout.write(pre + '' + (Math.round(state.percent * 100)) + "%");
+                          })
+                            .on('error', function (err) {
+                              console.log('error :( ' + err);
+                            })
+                            .on('end', function () {
+                              console.log(pre + '100% \n Download Completed');
+                            })
+                            .pipe(fs.createWriteStream(filename));
+                        };
 
 
-                //         downloadManager(hrefDown, pathDown);
-                //       })
-                //     return
-                //   }
-                //   //file exists
-                // })
+                        downloadManager(hrefDown, pathDown);
+                      })
+                    return
+                  }
+                  //file exists
+                })
 
 
                 // //  ----------------------END tải game
