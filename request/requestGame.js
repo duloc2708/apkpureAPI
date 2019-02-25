@@ -129,7 +129,7 @@ exports.Data = function () {
 
                 let fileGame = title.replace(/\s/g, "_");
                 fileGame = fileGame.trim()
-                const pathDown = 'game_down/' + fileGame + '.apk'
+                const pathDown = 'game_down/' + convertSlug(title) + '.apk'
                 // kiểm tra tồn tại file
                 fs.access(pathDown, fs.F_OK, (errFile) => {
                   if (errFile) {
