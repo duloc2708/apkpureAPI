@@ -6,7 +6,7 @@ var app = express();
 var job = require('node-cron');
 var i = 1;
 
-job.schedule('*/15 * * * *', async function () {
+job.schedule('* * * * *', async function () {
   console.log('request/rqGame>>>>>');
   let getGame = require('./request/requestGame.js');
   let rqGame = await getGame.Data();

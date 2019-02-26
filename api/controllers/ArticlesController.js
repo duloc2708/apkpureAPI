@@ -63,7 +63,9 @@ module.exports = {
     'autoAddArticles': (req, res) => {
         let { title, list_image, title_slug, id, tags, atr4, thumbnail } = req.body
         Articles.find({ title: title }).exec((err, usr) => {
+
             if (err) return resError(res, err)
+
             if (usr.length > 0) return resError(res, 'TITLE_EXISTS')
 
             let data = req.body
@@ -81,6 +83,7 @@ module.exports = {
             });
             //===========UPLOAD THUMBNAIL
             if (thumbnail) {
+                console.log('autoAddArticles>>>>>>>',thumbnail);
                 saveFileImage(thumbnail, imageName, pathUploadImage)
             }
         });
