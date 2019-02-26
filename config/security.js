@@ -29,7 +29,7 @@ module.exports.security = {
   ***************************************************************************/
 
   cors: {
-    allRoutes: true,
+    allRoutes: ['http://apksafety.com'],
     origin: '*',
     credentials: false,
     headers: 'content-type, authorization'
