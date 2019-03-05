@@ -76,9 +76,8 @@ exports.Data = function () {
             } else {
               mineType = '.apk'
             }
-
-            console.log('link_thumbnail>>>>>>>',avatar);
-            
+            let fsize = $detail('.fsize').eq(0).text();
+            console.log('version>>>>>>>', title, version);
             let options2 = {
               url: 'http://localhost:1337/api/articles/auto',
               json: true,
@@ -100,7 +99,9 @@ exports.Data = function () {
                 "atr1": 'https://apkpure.com' + link_down,
                 "atr2": convertSlug(title),
                 "atr3": mineType,
-                "atr4": img_large
+                "atr4": img_large,
+                "atr5": fsize || '',
+                "atr6": version || ''
               },
               resolveWithFullResponse: true,
               gzip: true,
