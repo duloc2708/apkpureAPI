@@ -28,6 +28,47 @@ module.exports = {
             resError(res, err.toString())
         }
     },
+    'testData': (req, res) => {
+        try {
+            console.log('testData>>>>>>>>>>>>');
+            let cheerio = require('cheerio');
+            Articles.find({ where: { atr7: '1' } }, (err, data) => {
+                console.log('err>>>>>>>>>>>>', err);
+
+                // console.log('data>>>>>>>>>>>>', data);
+
+                data.map((item) => {
+                    let itemTemp = item
+                    let content = '<div id="main">' + itemTemp.content_long + '</div>';
+                    let $ = cheerio.load(content);
+                    var listimg = '';
+                    $("#main").find('.mpopup img').map(function () {
+                        let imgItem = $(this).attr('src');
+                        listimg = listimg + imgItem + ','
+                    })
+                    if (listimg) {
+                        listimg = listimg.substr(0, listimg.length - 1)
+                    }
+                    // console.log('listimg>>>>>>',listimg);
+                    let des = $("#main").find('#describe').html()
+                    itemTemp.content_long = des
+                    itemTemp.atr7 = listimg
+                    var string = JSON.stringify(itemTemp);
+                    var json = JSON.parse(string);
+                    console.log('json>>>>>>', json);
+
+                    Articles.update({ id: json.id }, json).exec((err, result) => {
+                        console.log('err', err);
+                        console.log('thành công', itemTemp.id);
+
+                    });
+                });
+            })
+            resSuccess(res, '', [])
+        } catch (err) {
+            resError(res, err.toString())
+        }
+    },
     'getDataArticles': (req, res) => {
         try {
             Articles.getDatastore().sendNativeQuery('CALL articles_getAllData', [], (err, data) => {
@@ -83,7 +124,7 @@ module.exports = {
             });
             //===========UPLOAD THUMBNAIL
             if (thumbnail) {
-                console.log('autoAddArticles>>>>>>>',thumbnail);
+                console.log('autoAddArticles>>>>>>>', thumbnail);
                 saveFileImage(thumbnail, imageName, pathUploadImage)
             }
         });

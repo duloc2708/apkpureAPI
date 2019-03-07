@@ -8,6 +8,7 @@ module.exports.policies = {
     'autoAddArticles': true,
     'getBlogBySection': true,
     'getBlogDetail': true,
-    'getFileAPK': true
+    'getFileAPK': true,
+    'testData': true
   }
 };

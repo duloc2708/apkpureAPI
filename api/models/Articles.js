@@ -41,7 +41,11 @@ module.exports = {
     atr4: 'string',
     atr5: 'string',
     atr6: 'string',
-    atr7: 'string',
+    atr7: {
+      type: 'string',
+      columnType: 'TEXT',
+      allowNull: true,
+    },
     atr8: 'string',
     atr9: 'string',
     atr10: 'string',

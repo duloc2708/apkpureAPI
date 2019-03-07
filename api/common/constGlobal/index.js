@@ -14,7 +14,9 @@ module.exports = {
         { api: 'post /api/articles/add', action: 'addArticles' },
         { api: 'post /api/articles/update', action: 'updateArticles' },
         { api: '/api/articles/delete', action: 'deleteArticles' },
-        { api: 'post /api/articles/upload_avatar', action: 'uploadAvatar' }
+        { api: 'post /api/articles/upload_avatar', action: 'uploadAvatar' },
+        { api: '/api/articles/testData', action: 'testData' },
+
     ],
     LIST_API_USER: [
         { api: 'post /api/users/login', action: 'login' },
