@@ -9,6 +9,7 @@ module.exports.policies = {
     'getBlogBySection': true,
     'getBlogDetail': true,
     'getFileAPK': true,
-    'testData': true
+    'dataSiteMapListType': true,
+    'dataSiteMapPost': true
   }
 };

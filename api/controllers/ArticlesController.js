@@ -69,6 +69,26 @@ module.exports = {
             resError(res, err.toString())
         }
     },
+    'dataSiteMapPost': (req, res) => {
+        try {
+            Articles.getDatastore().sendNativeQuery('CALL articles_getAllSiteMap', [], (err, data) => {
+                if (err) return resError(res, err)
+                resSuccess(res, '', data.rows[0])
+            });
+        } catch (err) {
+            resError(res, err.toString())
+        }
+    },
+    'dataSiteMapListType': (req, res) => {
+        try {
+            Articles.getDatastore().sendNativeQuery('CALL articles_getAllSiteMap', [], (err, data) => {
+                if (err) return resError(res, err)
+                resSuccess(res, '', data.rows[0])
+            });
+        } catch (err) {
+            resError(res, err.toString())
+        }
+    },
     'getDataArticles': (req, res) => {
         try {
             Articles.getDatastore().sendNativeQuery('CALL articles_getAllData', [], (err, data) => {
