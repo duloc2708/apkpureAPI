@@ -81,7 +81,7 @@ module.exports = {
     },
     'dataSiteMapListType': (req, res) => {
         try {
-            Articles.getDatastore().sendNativeQuery('CALL articles_getAllSiteMap', [], (err, data) => {
+            Articles.getDatastore().sendNativeQuery('CALL listtype_getAllData', [], (err, data) => {
                 if (err) return resError(res, err)
                 resSuccess(res, '', data.rows[0])
             });

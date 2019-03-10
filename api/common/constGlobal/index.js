@@ -15,8 +15,8 @@ module.exports = {
         { api: 'post /api/articles/update', action: 'updateArticles' },
         { api: '/api/articles/delete', action: 'deleteArticles' },
         { api: 'post /api/articles/upload_avatar', action: 'uploadAvatar' },
-        { api: '/api/articles/sitemapPost', action: 'dataSiteMapListType' },
-        { api: '/api/articles/sitemapListType', action: 'dataSiteMapPost' },
+        { api: '/api/articles/sitemapListType', action: 'dataSiteMapListType' },
+        { api: '/api/articles/sitemapPost', action: 'dataSiteMapPost' },
 
 
     ],
