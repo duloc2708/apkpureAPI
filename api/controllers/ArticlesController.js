@@ -121,7 +121,7 @@ module.exports = {
                     if (listimg) {
                         listimg = listimg.substr(0, listimg.length - 1)
                     }
-                    console.log('listimg',listimg);
+                    console.log('listimg', listimg);
 
                     // if (listSlide.length > 0) {
                     //     listSlide.map(item => {
@@ -206,30 +206,33 @@ module.exports = {
             let data = req.body
             let type = thumbnail.split('.').pop();
             let imageName = 'thumbnail_' + title_slug + '.' + type;
+
+            let typeSlide = atr4.split('.').pop();
+            let imageSlide = 'imageSlide_' + title_slug + '.' + typeSlide;
+
             data.thumbnail = imageName
+            data.atr4 = imageSlide
 
-            let dataInsert = req.body
-            // delete dataInsert['listSlide'];
-
-            Articles.create(dataInsert).exec((errInsert, result) => {
+            Articles.create(data).exec((errInsert, result) => {
                 if (errInsert) {
                     resError(res, errInsert)
                 }
                 else {
+                    //===========UPLOAD THUMBNAIL
+                    if (thumbnail) {
+                        saveFileImage(thumbnail, imageName, pathUploadImage)
+                    }
+                    if (atr4) {
+                        saveFileImage(atr4, imageSlide, pathUploadImage)
+                    }
+                    if (listSlide.length > 0) {
+                        listSlide.map(item => {
+                            saveFileImage(item.url, item.filename, pathUploadImage)
+                        })
+                    }
                     resSuccess(res, '', [])
                 }
             });
-            //===========UPLOAD THUMBNAIL
-            if (thumbnail) {
-                console.log('autoAddArticles>>>>>>>', thumbnail);
-                saveFileImage(thumbnail, imageName, pathUploadImage)
-            }
-            console.log('listSlide>>>>>>', listSlide);
-            if (listSlide.length > 0) {
-                listSlide.map(item => {
-                    saveFileImage(item.url, item.filename, pathUploadImage)
-                })
-            }
         });
     },
     'addArticles': (req, res) => {
