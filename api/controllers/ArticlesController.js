@@ -28,40 +28,102 @@ module.exports = {
             resError(res, err.toString())
         }
     },
+    // 'testData': (req, res) => {
+    //     try {
+    //         console.log('testData>>>>>>>>>>>>');
+    //         let cheerio = require('cheerio');
+    //         Articles.find({ where: { atr: '' } }, (err, data) => {
+    //             console.log('err>>>>>>>>>>>>', err);
+
+    //             // console.log('data>>>>>>>>>>>>', data);
+
+    //             data.map((item) => {
+    //                 let itemTemp = item
+    //                 let content = '<div id="main">' + itemTemp.content_long + '</div>';
+    //                 let $ = cheerio.load(content);
+    //                 var listimg = '';
+    //                 $("#main").find('.mpopup img').map(function () {
+    //                     let imgItem = $(this).attr('src');
+    //                     listimg = listimg + imgItem + ','
+    //                 })
+    //                 if (listimg) {
+    //                     listimg = listimg.substr(0, listimg.length - 1)
+    //                 }
+    //                 // console.log('listimg>>>>>>',listimg);
+    //                 let des = $("#main").find('#describe').html()
+    //                 itemTemp.content_long = des
+    //                 itemTemp.atr7 = listimg
+    //                 var string = JSON.stringify(itemTemp);
+    //                 var json = JSON.parse(string);
+    //                 console.log('json>>>>>>', json);
+
+    //                 Articles.update({ id: json.id }, json).exec((err, result) => {
+    //                     console.log('err', err);
+    //                     console.log('thành công', itemTemp.id);
+
+    //                 });
+    //             });
+    //         })
+    //         resSuccess(res, '', [])
+    //     } catch (err) {
+    //         resError(res, err.toString())
+    //     }
+    // },
     'testData': (req, res) => {
         try {
             console.log('testData>>>>>>>>>>>>');
             let cheerio = require('cheerio');
-            Articles.find({ where: { atr7: '1' } }, (err, data) => {
+            Articles.find({ where: { atr8: '' } }, (err, data) => {
                 console.log('err>>>>>>>>>>>>', err);
 
                 // console.log('data>>>>>>>>>>>>', data);
 
                 data.map((item) => {
                     let itemTemp = item
-                    let content = '<div id="main">' + itemTemp.content_long + '</div>';
-                    let $ = cheerio.load(content);
-                    var listimg = '';
-                    $("#main").find('.mpopup img').map(function () {
-                        let imgItem = $(this).attr('src');
-                        listimg = listimg + imgItem + ','
-                    })
-                    if (listimg) {
-                        listimg = listimg.substr(0, listimg.length - 1)
+                    // let content = '<div id="main">' + itemTemp.content_long + '</div>';
+                    // let $ = cheerio.load(content);
+                    // var listimg = '';
+                    // $("#main").find('.mpopup img').map(function () {
+                    //     let imgItem = $(this).attr('src');
+                    //     listimg = listimg + imgItem + ','
+                    // })
+                    // if (listimg) {
+                    //     listimg = listimg.substr(0, listimg.length - 1)
+                    // }
+                    // // console.log('listimg>>>>>>',listimg);
+                    // let des = $("#main").find('#describe').html()
+                    // itemTemp.content_long = des
+                    // itemTemp.atr7 = listimg
+                    // var string = JSON.stringify(itemTemp);
+                    // var json = JSON.parse(string);
+                    let arrData = itemTemp.atr7.split(',')
+                    let listSlide = []
+                    if (arrData.length > 0) {
+                        arrData.map(itemImg => {
+                            var str = itemImg
+                            var dotIndex = str.lastIndexOf('.');
+                            var ext = str.substring(dotIndex);
+                            let filenameData = (itemTemp.title_slug) + '-' + str.split("/").pop().split(".")[0] + ext
+                            listSlide.push({
+                                url: str,
+                                filename: filenameData
+                            })
+                        })
                     }
-                    // console.log('listimg>>>>>>',listimg);
-                    let des = $("#main").find('#describe').html()
-                    itemTemp.content_long = des
-                    itemTemp.atr7 = listimg
-                    var string = JSON.stringify(itemTemp);
-                    var json = JSON.parse(string);
-                    console.log('json>>>>>>', json);
+         
+                    if (listSlide.length > 0) {
+                        listSlide.map(item => {
+                            saveFileImage(item.url, item.filename, pathUploadImage)
+                            console.log('listSlide thành công>>>>>>', item.url);
 
-                    Articles.update({ id: json.id }, json).exec((err, result) => {
-                        console.log('err', err);
-                        console.log('thành công', itemTemp.id);
+                        })
+                    }
+                    // Articles.update({ id: json.id }, json).exec((err, result) => {
+                    //     console.log('err', err);
+                    //     console.log('thành công', itemTemp.id);
 
-                    });
+                    // });
+
                 });
             })
             resSuccess(res, '', [])
@@ -149,7 +211,7 @@ module.exports = {
                 console.log('autoAddArticles>>>>>>>', thumbnail);
                 saveFileImage(thumbnail, imageName, pathUploadImage)
             }
-            console.log('listSlide>>>>>>',listSlide);
+            console.log('listSlide>>>>>>', listSlide);
             if (listSlide.length > 0) {
                 listSlide.map(item => {
                     saveFileImage(item.url, item.filename, pathUploadImage)
