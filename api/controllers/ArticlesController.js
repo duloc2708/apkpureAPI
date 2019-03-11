@@ -122,8 +122,8 @@ module.exports = {
 
                     //     })
                     // }
-                    
-                    json.atr4 = listimg
+                    json.atr4 = json.thumbnail
+                    json.atr7 = listimg
 
                     Articles.update({ id: json.id }, json).exec((err, result) => {
                         console.log('thành công',  json.id , json.atr4);
