@@ -1,5 +1,5 @@
 node_modules
 game_down
-assets
+/assets/
 log.txt
 .tmp
