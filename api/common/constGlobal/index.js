@@ -17,8 +17,7 @@ module.exports = {
         { api: 'post /api/articles/upload_avatar', action: 'uploadAvatar' },
         { api: '/api/articles/sitemapListType', action: 'dataSiteMapListType' },
         { api: '/api/articles/sitemapPost', action: 'dataSiteMapPost' },
-
-
+        { api: '/api/articles/testData', action: 'testData' },
     ],
     LIST_API_USER: [
         { api: 'post /api/users/login', action: 'login' },

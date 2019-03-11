@@ -122,11 +122,10 @@ module.exports = {
         }
     },
     'autoAddArticles': (req, res) => {
-        let { title, list_image, title_slug, id, tags, atr4, thumbnail } = req.body
+        let { title, list_image, title_slug, id, tags, atr4, thumbnail, listSlide } = req.body
+
         Articles.find({ title: title }).exec((err, usr) => {
-
             if (err) return resError(res, err)
-
             if (usr.length > 0) return resError(res, 'TITLE_EXISTS')
 
             let data = req.body
@@ -134,7 +133,10 @@ module.exports = {
             let imageName = 'thumbnail_' + title_slug + '.' + type;
             data.thumbnail = imageName
 
-            Articles.create(req.body).exec((errInsert, result) => {
+            let dataInsert = req.body
+            // delete dataInsert['listSlide'];
+
+            Articles.create(dataInsert).exec((errInsert, result) => {
                 if (errInsert) {
                     resError(res, errInsert)
                 }
@@ -146,6 +148,12 @@ module.exports = {
             if (thumbnail) {
                 console.log('autoAddArticles>>>>>>>', thumbnail);
                 saveFileImage(thumbnail, imageName, pathUploadImage)
+            }
+            console.log('listSlide>>>>>>',listSlide);
+            if (listSlide.length > 0) {
+                listSlide.map(item => {
+                    saveFileImage(item.url, item.filename, pathUploadImage)
+                })
             }
         });
     },
