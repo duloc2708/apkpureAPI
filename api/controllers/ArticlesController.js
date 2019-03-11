@@ -99,8 +99,9 @@ module.exports = {
                     let arrData = itemTemp.atr7.split(',')
                     let listSlide = []
                     var listimg = '';
+                    var imgFirts = '';
                     if (arrData.length > 0) {
-                        arrData.map(itemImg => {
+                        arrData.map((itemImg, i) => {
                             var str = itemImg
                             var dotIndex = str.lastIndexOf('.');
                             var ext = str.substring(dotIndex);
@@ -110,6 +111,9 @@ module.exports = {
                                 url: str,
                                 filename: filenameData
                             })
+                            if (i == 0) {
+                                imgFirts = filenameData
+                            }
                         })
                     }
                     if (listimg) {
@@ -122,11 +126,11 @@ module.exports = {
 
                     //     })
                     // }
-                    json.atr4 = json.thumbnail
+                    json.atr4 = imgFirts
                     json.atr7 = listimg
 
                     Articles.update({ id: json.id }, json).exec((err, result) => {
-                        console.log('thành công',  json.id , json.atr4);
+                        console.log('thành công', json.id, json.atr4);
                     });
 
                 });
