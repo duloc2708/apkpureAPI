@@ -94,35 +94,40 @@ module.exports = {
                     // let des = $("#main").find('#describe').html()
                     // itemTemp.content_long = des
                     // itemTemp.atr7 = listimg
-                    // var string = JSON.stringify(itemTemp);
-                    // var json = JSON.parse(string);
+                    var string = JSON.stringify(itemTemp);
+                    var json = JSON.parse(string);
                     let arrData = itemTemp.atr7.split(',')
                     let listSlide = []
+                    var listimg = '';
                     if (arrData.length > 0) {
                         arrData.map(itemImg => {
                             var str = itemImg
                             var dotIndex = str.lastIndexOf('.');
                             var ext = str.substring(dotIndex);
                             let filenameData = (itemTemp.title_slug) + '-' + str.split("/").pop().split(".")[0] + ext
+                            listimg = listimg + filenameData + ','
                             listSlide.push({
                                 url: str,
                                 filename: filenameData
                             })
                         })
                     }
-         
-                    if (listSlide.length > 0) {
-                        listSlide.map(item => {
-                            saveFileImage(item.url, item.filename, pathUploadImage)
-                            console.log('listSlide thành công>>>>>>', item.url);
-
-                        })
+                    if (listimg) {
+                        listimg = listimg.substr(0, listimg.length - 1)
                     }
-                    // Articles.update({ id: json.id }, json).exec((err, result) => {
-                    //     console.log('err', err);
-                    //     console.log('thành công', itemTemp.id);
+                    // if (listSlide.length > 0) {
+                    //     listSlide.map(item => {
+                    //         saveFileImage(item.url, item.filename, pathUploadImage)
+                    //         console.log('listSlide thành công>>>>>>', item.url);
 
-                    // });
+                    //     })
+                    // }
+                    
+                    json.atr4 = listimg
+
+                    Articles.update({ id: json.id }, json).exec((err, result) => {
+                        console.log('thành công',  json.id , json.atr4);
+                    });
 
                 });
             })
