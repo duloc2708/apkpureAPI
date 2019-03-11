@@ -105,7 +105,9 @@ module.exports = {
                             var str = itemImg
                             var dotIndex = str.lastIndexOf('.');
                             var ext = str.substring(dotIndex);
-                            let filenameData = (itemTemp.title_slug) + '-' + str.split("/").pop().split(".")[0] + ext
+
+                            let filenameData = (itemTemp.title_slug) + '-screen-' + i + ext
+
                             listimg = listimg + filenameData + ','
                             listSlide.push({
                                 url: str,
@@ -119,6 +121,8 @@ module.exports = {
                     if (listimg) {
                         listimg = listimg.substr(0, listimg.length - 1)
                     }
+                    console.log('listimg',listimg);
+
                     // if (listSlide.length > 0) {
                     //     listSlide.map(item => {
                     //         saveFileImage(item.url, item.filename, pathUploadImage)
