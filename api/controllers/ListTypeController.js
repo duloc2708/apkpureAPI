@@ -22,7 +22,7 @@ module.exports = {
         });
     },
     'updateListType': (req, res) => {
-        ListType.update({ id: 1 }, req.body).exec((err, result) => {
+        ListType.update({ id: req.body.id }, req.body).exec((err, result) => {
             if (err) return resError(res, err)
             resSuccess(res)
         });
