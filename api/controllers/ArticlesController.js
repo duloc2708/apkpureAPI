@@ -1,5 +1,5 @@
 
-const { resError, resize, resSuccess, getToken, saveFileImage, saveFileBase64 } = sails.config.custom
+const { resError, resSuccess, getToken, saveFileImage, saveFileBase64 } = sails.config.custom
 var multer = require('multer');
 var fs = require("fs")
 let mkdirp = require('mkdirp');
@@ -8,12 +8,12 @@ let path = require("path")
 const pathUploadImage = 'assets/images/'
 module.exports = {
     'getImage': (req, res) => {
-        const { name, width, height } = req.query
-        let fileExt = name.split('.').pop();
-        let w = parseInt(width)
-        let h = parseInt(height)
-        res.type(`image/${ fileExt || 'png' }`)
-        resize(pathUploadImage + name, fileExt, w, h).pipe(res)
+        // const { name, width, height } = req.query
+        // let fileExt = name.split('.').pop();
+        // let w = parseInt(width)
+        // let h = parseInt(height)
+        // res.type(`image/${ fileExt || 'png' }`)
+        // resize(pathUploadImage + name, fileExt, w, h).pipe(res)
     },
     'getFileAPK': (req, res) => {
         let { namefile, mineType } = req.query
@@ -32,6 +32,7 @@ module.exports = {
             // res.setHeader('Content-type', 'apk');
             // var filestream = fs.createReadStream(file);
             // filestream.pipe(res);
+            resSuccess(res, '', [])
         } catch (err) {
             resError(res, err.toString())
         }
