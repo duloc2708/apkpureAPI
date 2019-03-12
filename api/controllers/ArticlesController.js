@@ -8,12 +8,14 @@ let path = require("path")
 const pathUploadImage = 'assets/images/'
 module.exports = {
     'getImage': (req, res) => {
-        const { name, width, height } = req.query
-        let fileExt = name.split('.').pop();
-        let w = parseInt(width)
-        let h = parseInt(height)
-        res.type(`image/${ fileExt || 'png' }`)
-        resize(pathUploadImage + name, fileExt, w, h).pipe(res)
+        // const { name, width, height } = req.query
+        // let fileExt = name.split('.').pop();
+        // let w = parseInt(width)
+        // let h = parseInt(height)
+        // res.type(`image/${ fileExt || 'png' }`)
+        // resize(pathUploadImage + name, fileExt, w, h).pipe(res)
+
+        resSuccess(res, '', [])
     },
     'getFileAPK': (req, res) => {
         let { namefile, mineType } = req.query

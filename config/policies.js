@@ -11,6 +11,7 @@ module.exports.policies = {
     'getFileAPK': true,
     'dataSiteMapListType': true,
     'dataSiteMapPost': true,
-    'testData': true
+    'testData': true,
+    'getImage': true
   }
 };
