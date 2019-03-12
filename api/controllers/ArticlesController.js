@@ -1,5 +1,5 @@
 
-const { resError, resSuccess, getToken, saveFileImage, saveFileBase64 } = sails.config.custom
+const { resError, resize, resSuccess, getToken, saveFileImage, saveFileBase64 } = sails.config.custom
 var multer = require('multer');
 var fs = require("fs")
 let mkdirp = require('mkdirp');
@@ -7,6 +7,14 @@ let mime = require('mime');
 let path = require("path")
 const pathUploadImage = 'assets/images/'
 module.exports = {
+    'getImage': (req, res) => {
+        const { name, width, height } = req.query
+        let fileExt = name.split('.').pop();
+        let w = parseInt(width)
+        let h = parseInt(height)
+        res.type(`image/${ fileExt || 'png' }`)
+        resize(pathUploadImage + name, fileExt, w, h).pipe(res)
+    },
     'getFileAPK': (req, res) => {
         let { namefile, mineType } = req.query
         try {
@@ -28,47 +36,6 @@ module.exports = {
             resError(res, err.toString())
         }
     },
-    // 'testData': (req, res) => {
-    //     try {
-    //         console.log('testData>>>>>>>>>>>>');
-    //         let cheerio = require('cheerio');
-    //         Articles.find({ where: { atr: '' } }, (err, data) => {
-    //             console.log('err>>>>>>>>>>>>', err);
-
-    //             // console.log('data>>>>>>>>>>>>', data);
-
-    //             data.map((item) => {
-    //                 let itemTemp = item
-    //                 let content = '<div id="main">' + itemTemp.content_long + '</div>';
-    //                 let $ = cheerio.load(content);
-    //                 var listimg = '';
-    //                 $("#main").find('.mpopup img').map(function () {
-    //                     let imgItem = $(this).attr('src');
-    //                     listimg = listimg + imgItem + ','
-    //                 })
-    //                 if (listimg) {
-    //                     listimg = listimg.substr(0, listimg.length - 1)
-    //                 }
-    //                 // console.log('listimg>>>>>>',listimg);
-    //                 let des = $("#main").find('#describe').html()
-    //                 itemTemp.content_long = des
-    //                 itemTemp.atr7 = listimg
-    //                 var string = JSON.stringify(itemTemp);
-    //                 var json = JSON.parse(string);
-    //                 console.log('json>>>>>>', json);
-
-    //                 Articles.update({ id: json.id }, json).exec((err, result) => {
-    //                     console.log('err', err);
-    //                     console.log('thành công', itemTemp.id);
-
-    //                 });
-    //             });
-    //         })
-    //         resSuccess(res, '', [])
-    //     } catch (err) {
-    //         resError(res, err.toString())
-    //     }
-    // },
     'testData': (req, res) => {
         try {
             console.log('testData>>>>>>>>>>>>');

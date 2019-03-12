@@ -33,7 +33,8 @@
     "passport-local": "^1.0.0",
     "request": "^2.88.0",
     "request-progress": "^3.0.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "sharp": "^0.21.3"
   },
   "scripts": {
     "start": "NODE_ENV=production node app.js",

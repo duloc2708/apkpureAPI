@@ -18,6 +18,7 @@ module.exports = {
         { api: '/api/articles/sitemapListType', action: 'dataSiteMapListType' },
         { api: '/api/articles/sitemapPost', action: 'dataSiteMapPost' },
         { api: '/api/articles/testData', action: 'testData' },
+        { api: '/api/image', action: 'getImage' },
     ],
     LIST_API_USER: [
         { api: 'post /api/users/login', action: 'login' },
