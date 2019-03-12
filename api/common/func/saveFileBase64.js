@@ -11,8 +11,12 @@ const saveFileBase64 = (data, filename, dest) => {
     let imageName = dest + filename + '.' + type
     let buf = new Buffer(dataImg, 'base64');
     fs.writeFile(imageName, buf, (error) => {
-      if (error) return reject(err)
-      resolve(imageName)
+      if (error) return reject(error)
+      fs.chmod(imageName, 0777, (err2) => {
+        if (err2) throw err2;
+        resolve(imageName)
+      })
+
     });
   })
 
