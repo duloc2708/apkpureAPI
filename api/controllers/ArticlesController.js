@@ -24,10 +24,21 @@ module.exports = {
                         });
                     })
                 } else {
-                    lenna.resize(w, h).quality(60).getBuffer(fileExt, function (err, buffer) {
-                        res.set("Content-Type", fileExt);
-                        res.send(buffer);
-                    });
+                    if (lenna) {
+                        console.log('lenna>>>>>', lenna);
+                        lenna.resize(w, h).quality(60).getBuffer(Jimp.MIME_JPEG, function (err, buffer) {
+                            res.set("Content-Type", Jimp.MIME_JPEG);
+                            res.send(buffer);
+                        });
+                    } else {
+                        Jimp.read(pathUploadImage + 'image-not-found.jpg', function (err2, lenna2) {
+                            lenna2.resize(w, h).quality(60).getBuffer(`image/${'png'}`, function (err3, buffer) {
+                                res.set("Content-Type", `image/${'png'}`);
+                                res.send(buffer);
+                            });
+                        })
+                    }
+
                 }
             });
         } catch (err) {
