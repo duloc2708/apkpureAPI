@@ -18,23 +18,20 @@ module.exports = {
             Jimp.read(pathUploadImage + name, function (err, lenna) {
                 if (err) {
                     Jimp.read(pathUploadImage + 'image-not-found.jpg', function (err2, lenna2) {
-                        console.log('err2>>>>',err2);
-                        
-                        lenna2.resize(64, 64).quality(60).getBuffer(`image/${'png'}`, function (err3, buffer) {
+                        lenna2.resize(w, h).quality(60).getBuffer(`image/${'png'}`, function (err3, buffer) {
                             res.set("Content-Type", `image/${'png'}`);
                             res.send(buffer);
                         });
                     })
                 } else {
                     if (lenna) {
-                        console.log('lenna>>>>>', lenna);
-                        lenna.resize(64, 64).quality(60).getBuffer(Jimp.MIME_JPEG, function (err, buffer) {
+                        lenna.resize(w, h).quality(60).getBuffer(Jimp.MIME_JPEG, function (err, buffer) {
                             res.set("Content-Type", Jimp.MIME_JPEG);
                             res.send(buffer);
                         });
                     } else {
                         Jimp.read(pathUploadImage + 'image-not-found.jpg', function (err2, lenna2) {
-                            lenna2.resize(64, 64).quality(60).getBuffer(`image/${'png'}`, function (err3, buffer) {
+                            lenna2.resize(w, h).quality(60).getBuffer(`image/${'png'}`, function (err3, buffer) {
                                 res.set("Content-Type", `image/${'png'}`);
                                 res.send(buffer);
                             });
