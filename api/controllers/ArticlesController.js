@@ -18,6 +18,8 @@ module.exports = {
             Jimp.read(pathUploadImage + name, function (err, lenna) {
                 if (err) {
                     Jimp.read(pathUploadImage + 'image-not-found.jpg', function (err2, lenna2) {
+                        console.log('err2>>>>',err2);
+                        
                         lenna2.resize(64, 64).quality(60).getBuffer(`image/${'png'}`, function (err3, buffer) {
                             res.set("Content-Type", `image/${'png'}`);
                             res.send(buffer);
