@@ -13,24 +13,28 @@ module.exports = {
         let { name, width, height } = req.query
         let fileExt = `image/png`;
         let w = parseInt(width)
-        let h = parseInt(height)        
-        // Jimp.read(pathUploadImage + name, function (err, lenna) {
-        //     if (err) {                
-        //         Jimp.read(pathUploadImage + 'image-not-found.jpg', function (err2, lenna2) {
-        //             lenna2.resize(w, h).quality(60).getBuffer(`image/${'png'}`, function (err3, buffer) {
-        //                 res.set("Content-Type",`image/${'png'}`);
-        //                 res.send(buffer);
-        //             });
-        //         })
-        //     } else {
-        //         lenna.resize(w, h).quality(60).getBuffer(fileExt, function (err, buffer) {
-        //             res.set("Content-Type", fileExt);
-        //             res.send(buffer);
-        //         });
-        //     }
+        let h = parseInt(height)
+        try {
+            Jimp.read(pathUploadImage + name, function (err, lenna) {
+                if (err) {
+                    Jimp.read(pathUploadImage + 'image-not-found.jpg', function (err2, lenna2) {
+                        lenna2.resize(w, h).quality(60).getBuffer(`image/${'png'}`, function (err3, buffer) {
+                            res.set("Content-Type", `image/${'png'}`);
+                            res.send(buffer);
+                        });
+                    })
+                } else {
+                    lenna.resize(w, h).quality(60).getBuffer(fileExt, function (err, buffer) {
+                        res.set("Content-Type", fileExt);
+                        res.send(buffer);
+                    });
+                }
+            });
+        } catch (err) {
+            resError(res, err.toString())
+        }
 
-        // });
-        resSuccess(res, '', [])
+        // resSuccess(res, '', [])
     },
     'getFileAPK': (req, res) => {
         let { namefile, mineType } = req.query
