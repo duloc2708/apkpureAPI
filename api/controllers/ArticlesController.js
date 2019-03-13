@@ -6,14 +6,24 @@ let mkdirp = require('mkdirp');
 let mime = require('mime');
 let path = require("path")
 const pathUploadImage = 'assets/images/'
+var Jimp = require("jimp");
+
 module.exports = {
     'getImage': (req, res) => {
-        // const { name, width, height } = req.query
-        // let fileExt = name.split('.').pop();
-        // let w = parseInt(width)
-        // let h = parseInt(height)
+        const { name, width, height } = req.query
+        let fileExt = name.split('.').pop();
+        let w = parseInt(width)
+        let h = parseInt(height)
         // res.type(`image/${ fileExt || 'png' }`)
         // resize(pathUploadImage + name, fileExt, w, h).pipe(res)
+
+        Jimp.read(pathUploadImage + name, function(err, lenna) {
+            lenna.resize(w, h).quality(60).getBuffer(Jimp.MIME_JPEG, function(err, buffer){
+                 res.set("Content-Type", Jimp.MIME_JPEG);
+                 res.send(buffer);
+             });
+        });
+
     },
     'getFileAPK': (req, res) => {
         let { namefile, mineType } = req.query
