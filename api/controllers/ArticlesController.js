@@ -22,6 +22,9 @@ module.exports = {
         if (pathWidth == '255-135') {
             folCreate = 'slide'
         }
+        if (pathWidth == '500-300') {
+            folCreate = 'slide_index'
+        }
         if (!fs.existsSync(pathUploadImage + folCreate)) {
             fs.mkdirSync(pathUploadImage + folCreate);
         }
@@ -39,7 +42,7 @@ module.exports = {
                     })
                 } else {
                     if (lenna) {
-              
+
                         lenna.resize(w, h)
                             .quality(100)
                             .write(pathUploadImage + folCreate + '/' + filename + '.jpeg'); // save
