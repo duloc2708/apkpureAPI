@@ -15,8 +15,15 @@ module.exports = {
         let w = parseInt(width)
         let h = parseInt(height)
         let pathWidth = width + '-' + height
-        if (!fs.existsSync(pathUploadImage + pathWidth)) {
-            fs.mkdirSync(pathUploadImage + pathWidth);
+        let folCreate = ''
+        if (pathWidth = '75-50') {
+            folCreate = 'thumb_mini'
+        }
+        if (pathWidth = '255-135') {
+            folCreate = 'slide'
+        }
+        if (!fs.existsSync(pathUploadImage + folCreate)) {
+            fs.mkdirSync(pathUploadImage + folCreate);
         }
 
         let filename = name.split('\\').pop().split('/').pop();
@@ -32,10 +39,11 @@ module.exports = {
                     })
                 } else {
                     if (lenna) {
+              
                         lenna.resize(w, h)
                             .quality(100)
-                            .write(pathUploadImage + pathWidth + '/' + filename+'.jpeg'); // save
- 
+                            .write(pathUploadImage + folCreate + '/' + filename + '.jpeg'); // save
+
                         lenna.resize(w, h).quality(100).getBuffer(Jimp.MIME_JPEG, function (err, buffer) {
                             res.set("Content-Type", Jimp.MIME_JPEG);
                             res.send(buffer);
