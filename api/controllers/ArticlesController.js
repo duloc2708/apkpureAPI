@@ -14,23 +14,23 @@ module.exports = {
         let fileExt = `image/png`;
         let w = parseInt(width)
         let h = parseInt(height)        
-        Jimp.read(pathUploadImage + name, function (err, lenna) {
-            if (err) {                
-                Jimp.read(pathUploadImage + 'image-not-found.jpg', function (err2, lenna2) {
-                    lenna2.resize(w, h).quality(60).getBuffer(`image/${'png'}`, function (err3, buffer) {
-                        res.set("Content-Type",`image/${'png'}`);
-                        res.send(buffer);
-                    });
-                })
-            } else {
-                lenna.resize(w, h).quality(60).getBuffer(fileExt, function (err, buffer) {
-                    res.set("Content-Type", fileExt);
-                    res.send(buffer);
-                });
-            }
+        // Jimp.read(pathUploadImage + name, function (err, lenna) {
+        //     if (err) {                
+        //         Jimp.read(pathUploadImage + 'image-not-found.jpg', function (err2, lenna2) {
+        //             lenna2.resize(w, h).quality(60).getBuffer(`image/${'png'}`, function (err3, buffer) {
+        //                 res.set("Content-Type",`image/${'png'}`);
+        //                 res.send(buffer);
+        //             });
+        //         })
+        //     } else {
+        //         lenna.resize(w, h).quality(60).getBuffer(fileExt, function (err, buffer) {
+        //             res.set("Content-Type", fileExt);
+        //             res.send(buffer);
+        //         });
+        //     }
 
-        });
-
+        // });
+        resSuccess(res, '', [])
     },
     'getFileAPK': (req, res) => {
         let { namefile, mineType } = req.query
