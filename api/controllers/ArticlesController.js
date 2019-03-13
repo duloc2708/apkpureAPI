@@ -23,7 +23,7 @@ module.exports = {
             folCreate = 'slide'
         }
         if (pathWidth == '500-300') {
-            folCreate = 'slide_index'
+            folCreate = '500-300'
         }
         if (!fs.existsSync(pathUploadImage + folCreate)) {
             fs.mkdirSync(pathUploadImage + folCreate);
