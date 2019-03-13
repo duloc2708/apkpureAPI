@@ -10,18 +10,25 @@ var Jimp = require("jimp");
 
 module.exports = {
     'getImage': (req, res) => {
-        const { name, width, height } = req.query
-        let fileExt = name.split('.').pop();
+        let { name, width, height } = req.query
+        let fileExt = `image/png`;
         let w = parseInt(width)
-        let h = parseInt(height)
-        // res.type(`image/${ fileExt || 'png' }`)
-        // resize(pathUploadImage + name, fileExt, w, h).pipe(res)
+        let h = parseInt(height)        
+        Jimp.read(pathUploadImage + name, function (err, lenna) {
+            if (err) {                
+                Jimp.read(pathUploadImage + 'image-not-found.jpg', function (err2, lenna2) {
+                    lenna2.resize(w, h).quality(60).getBuffer(`image/${'png'}`, function (err3, buffer) {
+                        res.set("Content-Type",`image/${'png'}`);
+                        res.send(buffer);
+                    });
+                })
+            } else {
+                lenna.resize(w, h).quality(60).getBuffer(fileExt, function (err, buffer) {
+                    res.set("Content-Type", fileExt);
+                    res.send(buffer);
+                });
+            }
 
-        Jimp.read(pathUploadImage + name, function(err, lenna) {
-            lenna.resize(w, h).quality(60).getBuffer(Jimp.MIME_JPEG, function(err, buffer){
-                 res.set("Content-Type", Jimp.MIME_JPEG);
-                 res.send(buffer);
-             });
         });
 
     },
