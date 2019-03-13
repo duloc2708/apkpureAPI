@@ -16,10 +16,10 @@ module.exports = {
         let h = parseInt(height)
         let pathWidth = width + '-' + height
         let folCreate = ''
-        if (pathWidth = '75-50') {
+        if (pathWidth == '75-50') {
             folCreate = 'thumb_mini'
         }
-        if (pathWidth = '255-135') {
+        if (pathWidth == '255-135') {
             folCreate = 'slide'
         }
         if (!fs.existsSync(pathUploadImage + folCreate)) {
