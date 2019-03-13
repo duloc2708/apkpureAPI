@@ -14,6 +14,13 @@ module.exports = {
         let fileExt = `image/png`;
         let w = parseInt(width)
         let h = parseInt(height)
+        let pathWidth = width + '-' + height
+        if (!fs.existsSync(pathUploadImage + pathWidth)) {
+            fs.mkdirSync(pathUploadImage + pathWidth);
+        }
+
+        let filename = name.split('\\').pop().split('/').pop();
+        filename = filename.substring(0, filename.lastIndexOf('.'));
         try {
             Jimp.read(pathUploadImage + name, function (err, lenna) {
                 if (err) {
@@ -25,6 +32,10 @@ module.exports = {
                     })
                 } else {
                     if (lenna) {
+                        lenna.resize(w, h)
+                            .quality(100)
+                            .write(pathUploadImage + pathWidth + '/' + filename+'.jpeg'); // save
+ 
                         lenna.resize(w, h).quality(100).getBuffer(Jimp.MIME_JPEG, function (err, buffer) {
                             res.set("Content-Type", Jimp.MIME_JPEG);
                             res.send(buffer);
