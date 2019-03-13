@@ -14,46 +14,35 @@ module.exports = {
         let fileExt = `image/png`;
         let w = parseInt(width)
         let h = parseInt(height)
-        fs.readFile(pathUploadImage + name, function (err, content) {
-            if (err) {
-                res.writeHead(400, {'Content-type':'text/html'})
-                console.log(err);
-                res.end("No such image");    
-            } else {
-                //specify the content type in the response will be an image
-                res.writeHead(200,{'Content-type':`image/${'png'}`});
-                res.end(content);
-            }
-        });
-        // try {
-        //     Jimp.read(pathUploadImage + name, function (err, lenna) {
-        //         if (err) {
-        //             Jimp.read(pathUploadImage + 'image-not-found.jpg', function (err2, lenna2) {
-        //                 lenna2.resize(w, h).quality(100).getBuffer(`image/${'png'}`, function (err3, buffer) {
-        //                     res.set("Content-Type", `image/${'png'}`);
-        //                     res.send(buffer);
-        //                 });
-        //             })
-        //         } else {
-        //             if (lenna) {
-        //                 lenna.resize(w, h).quality(100).getBuffer(Jimp.MIME_JPEG, function (err, buffer) {
-        //                     res.set("Content-Type", Jimp.MIME_JPEG);
-        //                     res.send(buffer);
-        //                 });
-        //             } else {
-        //                 Jimp.read(pathUploadImage + 'image-not-found.jpg', function (err2, lenna2) {
-        //                     lenna2.resize(w, h).quality(100).getBuffer(`image/${'png'}`, function (err3, buffer) {
-        //                         res.set("Content-Type", `image/${'png'}`);
-        //                         res.send(buffer);
-        //                     });
-        //                 })
-        //             }
+        try {
+            Jimp.read(pathUploadImage + name, function (err, lenna) {
+                if (err) {
+                    Jimp.read(pathUploadImage + 'image-not-found.jpg', function (err2, lenna2) {
+                        lenna2.resize(w, h).quality(100).getBuffer(`image/${'png'}`, function (err3, buffer) {
+                            res.set("Content-Type", `image/${'png'}`);
+                            res.send(buffer);
+                        });
+                    })
+                } else {
+                    if (lenna) {
+                        lenna.resize(w, h).quality(100).getBuffer(Jimp.MIME_JPEG, function (err, buffer) {
+                            res.set("Content-Type", Jimp.MIME_JPEG);
+                            res.send(buffer);
+                        });
+                    } else {
+                        Jimp.read(pathUploadImage + 'image-not-found.jpg', function (err2, lenna2) {
+                            lenna2.resize(w, h).quality(100).getBuffer(`image/${'png'}`, function (err3, buffer) {
+                                res.set("Content-Type", `image/${'png'}`);
+                                res.send(buffer);
+                            });
+                        })
+                    }
 
-        //         }
-        //     });
-        // } catch (err) {
-        //     resError(res, err.toString())
-        // }
+                }
+            });
+        } catch (err) {
+            resError(res, err.toString())
+        }
 
         // resSuccess(res, '', [])
     },
