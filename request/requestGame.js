@@ -70,6 +70,24 @@ exports.Data = function () {
               }
             }).get();
 
+
+            // get list slide image 
+            var listimg = '';
+            var listSlide = []
+            $detail(".describe").find('img').map(function () {
+              var imgItem = $detail(this).find('img').attr('src');
+              var str = imgItem
+              var dotIndex = str.lastIndexOf('.');
+              var ext = str.substring(dotIndex);
+              let filenameData = convertSlug(title) + '-' + imgItem.split("/").pop().split(".")[0] + ext
+              listSlide.push({
+                url: imgItem,
+                filename: filenameData
+              })
+
+              listimg = listimg + filenameData + ','
+            });
+
             let mineType = ''
             if ($detail('.ny-down').text().trim().indexOf('XAPK') != -1) {
               mineType = '.xapk'
@@ -101,7 +119,9 @@ exports.Data = function () {
                 "atr3": mineType,
                 "atr4": img_large,
                 "atr5": fsize || '',
-                "atr6": version || ''
+                "atr6": version || '',
+                'atr7': listimg,
+                "listSlide": listSlide
               },
               resolveWithFullResponse: true,
               gzip: true,

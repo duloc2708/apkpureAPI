@@ -12,6 +12,7 @@ module.exports.policies = {
     'dataSiteMapListType': true,
     'dataSiteMapPost': true,
     'testData': true,
-    'getImage': true
+    'getImage': true,
+    'getLink': true
   }
 };
