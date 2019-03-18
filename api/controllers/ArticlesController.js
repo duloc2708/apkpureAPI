@@ -11,8 +11,7 @@ var request = require('request-promise');
 let cheerio = require('cheerio');
 module.exports = {
     'getLink': (req, res) => {
-        // let url = 'https://play.google.com/store/apps/details?id=com.soaica3q&fbclid=IwAR1u7bxYKwfm3LWI6mQkRJX2DfbzbAbIcu2Lip2iVKE-g2o2PA4jBeM-R2Q'
-        let url = 'https://apkpure.com/fifa-17-fifa-mobile-soccer/com.ea.gp.fifamobile'
+        let { url } = req.body
         if (url.indexOf('play.google') != -1) {
             var optionsDetail = {
                 uri: url,
@@ -60,43 +59,8 @@ module.exports = {
                     if (listimg) {
                         listimg = listimg.substr(0, listimg.length - 1)
                     }
-                    let options2 = {
-                        url: 'http://localhost:1337/api/articles/auto',
-                        json: true,
-                        body: {
-                            "title": title,
-                            "title_slug": convertSlug(title),
-                            "thumbnail": avatar,
-                            "type": category,
-                            "tags": convertSlug(title),
-                            "view": "0",
-                            "content_short": title,
-                            "content_long": content_long,
-                            "source": "play google",
-                            "status": "active",
-                            "created_by": "admin",
-                            "numWord": "0",
-                            "numChar": "0",
-                            "levels": "0",
-                            "atr1": 'https://apkpure.com' + '',
-                            "atr2": convertSlug(title),
-                            "atr3": mineType,
-                            "atr4": img_large,
-                            "atr5": '',
-                            "atr6": '',
-                            'atr7': listimg,
-                            "listSlide": listSlide
-                        },
-                        resolveWithFullResponse: true,
-                        gzip: true,
-                        transform: function (body, response) {
-                            if (response.headers['content-type'] === 'application/json') {
-                                response.body = JSON.parse(body);
-                            }
-                            return response;
-                        }
-                    }
-                    console.log('data', {
+
+                    let data = {
                         "title": title,
                         "title_slug": convertSlug(title),
                         "thumbnail": avatar,
@@ -119,7 +83,22 @@ module.exports = {
                         "atr6": '',
                         'atr7': listimg,
                         "listSlide": listSlide
-                    });
+                    }
+                    resSuccess(res, '', [data])
+
+                    let options2 = {
+                        url: 'http://localhost:1337/api/articles/auto',
+                        json: true,
+                        body: data,
+                        resolveWithFullResponse: true,
+                        gzip: true,
+                        transform: function (body, response) {
+                            if (response.headers['content-type'] === 'application/json') {
+                                response.body = JSON.parse(body);
+                            }
+                            return response;
+                        }
+                    }
 
                     // request.post(options2)
                     //     .then(function (rs) {
@@ -213,35 +192,38 @@ module.exports = {
                         fsize = fsize.replace(/[`~!@#$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi, '');
 
                     }
-            
+
+                    let data = {
+                        "title": title,
+                        "title_slug": convertSlug(title),
+                        "thumbnail": avatar,
+                        "type": category,
+                        "tags": category,
+                        "view": "0",
+                        "content_short": title,
+                        "content_long": content_long,
+                        "source": "test",
+                        "status": "active",
+                        "created_by": "admin",
+                        "numWord": "0",
+                        "numChar": "0",
+                        "levels": "0",
+                        "atr1": 'https://apkpure.com' + link_down,
+                        "atr2": convertSlug(title),
+                        "atr3": mineType,
+                        "atr4": img_large,
+                        "atr5": fsize || '',
+                        "atr6": version || '',
+                        'atr7': listimg,
+                        "listSlide": listSlide
+                    }
+                    resSuccess(res, '', [data])
+
                     let options2 = {
                         //url: 'http://api.apksafety.com/api/articles/auto',
                         url: ' http://localhost:1337/api/articles/auto',
                         json: true,
-                        body: {
-                            "title": title,
-                            "title_slug": convertSlug(title),
-                            "thumbnail": avatar,
-                            "type": category,
-                            "tags": category,
-                            "view": "0",
-                            "content_short": title,
-                            "content_long": content_long,
-                            "source": "test",
-                            "status": "active",
-                            "created_by": "admin",
-                            "numWord": "0",
-                            "numChar": "0",
-                            "levels": "0",
-                            "atr1": 'https://apkpure.com' + link_down,
-                            "atr2": convertSlug(title),
-                            "atr3": mineType,
-                            "atr4": img_large,
-                            "atr5": fsize || '',
-                            "atr6": version || '',
-                            'atr7': listimg,
-                            "listSlide": listSlide
-                        },
+                        body: data,
                         resolveWithFullResponse: true,
                         gzip: true,
                         transform: function (body, response) {
@@ -306,7 +288,6 @@ module.exports = {
 
                 })
         }
-        resSuccess(res, '', [])
     },
     'getImage': (req, res) => {
         let { name, width, height } = req.query
@@ -391,78 +372,114 @@ module.exports = {
     },
     'testData': (req, res) => {
         try {
-            console.log('testData>>>>>>>>>>>>');
             let cheerio = require('cheerio');
             Articles.find({ where: { atr8: '' } }, (err, data) => {
-                console.log('err>>>>>>>>>>>>', err);
+                data.map(item => {
+                    let options2 = {
+                        url: 'http://api.apksafety.com/api/articles/auto',
+                        json: true,
+                        body: item,
+                        resolveWithFullResponse: true,
+                        gzip: true,
+                        transform: function (body, response) {
+                            if (response.headers['content-type'] === 'application/json') {
+                                response.body = JSON.parse(body);
+                            }
+                            return response;
+                        }
+                    }
+                    request.post(options2)
+                        .then(function (rs) {
+                            console.log('rs>>>>>>>>>>>>', rs.body);
 
-                // console.log('data>>>>>>>>>>>>', data);
+                        })
+                })
 
-                data.map((item) => {
-                    let itemTemp = item
-                    // let content = '<div id="main">' + itemTemp.content_long + '</div>';
-                    // let $ = cheerio.load(content);
-                    // var listimg = '';
-                    // $("#main").find('.mpopup img').map(function () {
-                    //     let imgItem = $(this).attr('src');
-                    //     listimg = listimg + imgItem + ','
-                    // })
-                    // if (listimg) {
-                    //     listimg = listimg.substr(0, listimg.length - 1)
-                    // }
-                    // // console.log('listimg>>>>>>',listimg);
-                    // let des = $("#main").find('#describe').html()
-                    // itemTemp.content_long = des
-                    // itemTemp.atr7 = listimg
-                    // var string = JSON.stringify(itemTemp);
-                    // var json = JSON.parse(string);
-                    // let arrData = itemTemp.atr7.split(',')
-                    // let listSlide = []
-                    // var listimg = '';
-                    // var imgFirts = '';
-                    // if (arrData.length > 0) {
-                    //     arrData.map((itemImg, i) => {
-                    //         var str = itemImg
-                    //         var dotIndex = str.lastIndexOf('.');
-                    //         var ext = str.substring(dotIndex);
+                // Articles.create(data).exec((errInsert, result) => {
+                //     console.log('errInsert',errInsert);
 
-                    //         let filenameData = (itemTemp.title_slug) + '-screen-' + i + ext
+                // })
+                // // console.log('data>>>>>>>>>>>>', data);
 
-                    //         listimg = listimg + filenameData + ','
-                    //         listSlide.push({
-                    //             url: str,
-                    //             filename: filenameData
-                    //         })
-                    //         if (i == 0) {
-                    //             imgFirts = filenameData
-                    //         }
-                    //     })
-                    // }
-                    // if (listimg) {
-                    //     listimg = listimg.substr(0, listimg.length - 1)
-                    // }
-                    // console.log('listimg', listimg);
 
-                    // // if (listSlide.length > 0) {
-                    // //     listSlide.map(item => {
-                    // //         saveFileImage(item.url, item.filename, pathUploadImage)
-                    // //         console.log('listSlide thành công>>>>>>', item.url);
-
-                    // //     })
-                    // // }
-                    // json.atr4 = imgFirts
-                    // json.atr7 = listimg
-
-                    // Articles.update({ id: json.id }, json).exec((err, result) => {
-                    //     console.log('thành công', json.id, json.atr4);
-                    // });
-
-                });
             })
             resSuccess(res, '', [])
         } catch (err) {
             resError(res, err.toString())
         }
+        // try {
+        //     console.log('testData>>>>>>>>>>>>');
+        //     let cheerio = require('cheerio');
+        //     Articles.find({ where: { atr8: '' } }, (err, data) => {
+        //         console.log('err>>>>>>>>>>>>', err);
+
+        //         // console.log('data>>>>>>>>>>>>', data);
+
+        //         data.map((item) => {
+        //             let itemTemp = item
+        //             // let content = '<div id="main">' + itemTemp.content_long + '</div>';
+        //             // let $ = cheerio.load(content);
+        //             // var listimg = '';
+        //             // $("#main").find('.mpopup img').map(function () {
+        //             //     let imgItem = $(this).attr('src');
+        //             //     listimg = listimg + imgItem + ','
+        //             // })
+        //             // if (listimg) {
+        //             //     listimg = listimg.substr(0, listimg.length - 1)
+        //             // }
+        //             // // console.log('listimg>>>>>>',listimg);
+        //             // let des = $("#main").find('#describe').html()
+        //             // itemTemp.content_long = des
+        //             // itemTemp.atr7 = listimg
+        //             // var string = JSON.stringify(itemTemp);
+        //             // var json = JSON.parse(string);
+        //             // let arrData = itemTemp.atr7.split(',')
+        //             // let listSlide = []
+        //             // var listimg = '';
+        //             // var imgFirts = '';
+        //             // if (arrData.length > 0) {
+        //             //     arrData.map((itemImg, i) => {
+        //             //         var str = itemImg
+        //             //         var dotIndex = str.lastIndexOf('.');
+        //             //         var ext = str.substring(dotIndex);
+
+        //             //         let filenameData = (itemTemp.title_slug) + '-screen-' + i + ext
+
+        //             //         listimg = listimg + filenameData + ','
+        //             //         listSlide.push({
+        //             //             url: str,
+        //             //             filename: filenameData
+        //             //         })
+        //             //         if (i == 0) {
+        //             //             imgFirts = filenameData
+        //             //         }
+        //             //     })
+        //             // }
+        //             // if (listimg) {
+        //             //     listimg = listimg.substr(0, listimg.length - 1)
+        //             // }
+        //             // console.log('listimg', listimg);
+
+        //             // // if (listSlide.length > 0) {
+        //             // //     listSlide.map(item => {
+        //             // //         saveFileImage(item.url, item.filename, pathUploadImage)
+        //             // //         console.log('listSlide thành công>>>>>>', item.url);
+
+        //             // //     })
+        //             // // }
+        //             // json.atr4 = imgFirts
+        //             // json.atr7 = listimg
+
+        //             // Articles.update({ id: json.id }, json).exec((err, result) => {
+        //             //     console.log('thành công', json.id, json.atr4);
+        //             // });
+
+        //         });
+        //     })
+        //     resSuccess(res, '', [])
+        // } catch (err) {
+        //     resError(res, err.toString())
+        // }
     },
     'dataSiteMapPost': (req, res) => {
         try {
