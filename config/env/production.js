@@ -48,7 +48,7 @@ module.exports = {
     ***************************************************************************/
     default: {
       adapter: 'sails-mysql',
-      url: 'mysql://user_apk:1111@3.1.27.223:3306/db_apk_prod',
+      url: 'mysql://user_apk:1111@54.255.182.246:3306/db_apk_prod',
       // charset: 'utf8',
       // collation: 'utf8_general_ci'
       //--------------------------------------------------------------------------
