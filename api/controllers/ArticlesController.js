@@ -1,5 +1,5 @@
 
-const { resError, convertSlug, resSuccess, getToken, saveFileImage, saveFileBase64 } = sails.config.custom
+const { resError, resize, convertSlug, resSuccess, getToken, saveFileImage, saveFileBase64 } = sails.config.custom
 var multer = require('multer');
 var fs = require("fs")
 let mkdirp = require('mkdirp');
@@ -290,6 +290,32 @@ module.exports = {
         }
     },
     'getImage': (req, res) => {
+        let { name, width, height } = req.query
+        const widthStr = width
+        const heightStr = height
+        const format = 'jpeg'
+        let widthTemp, heightTemp
+        if (widthStr) {
+            widthTemp = parseInt(widthStr)
+        }
+        if (heightStr) {
+            heightTemp = parseInt(heightStr)
+        }
+        let pathImage = pathUploadImage + name
+        if (name) {
+            if (fs.existsSync(pathImage)) {
+                res.type(`image/${format || 'jpeg'}`)
+                resize(pathImage, format, widthTemp, heightTemp).pipe(res)
+            } else {
+                res.type(`image/${format || 'jpeg'}`)
+                resize(pathUploadImage + 'image-not-found.jpg', format, widthTemp, heightTemp).pipe(res)
+            }
+        }else{
+            res.type(`image/${format || 'jpeg'}`)
+            resize(pathUploadImage + 'image-not-found.jpg', format, widthTemp, heightTemp).pipe(res)
+        }
+    },
+    'getImageTest': (req, res) => {
         let { name, width, height } = req.query
         let fileExt = `image/png`;
         let w = parseInt(width)
