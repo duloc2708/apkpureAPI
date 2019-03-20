@@ -12,6 +12,8 @@ let cheerio = require('cheerio');
 module.exports = {
     'getLink': (req, res) => {
         let { url } = req.body
+        console.log('url', url);
+
         if (url.indexOf('play.google') != -1) {
             var optionsDetail = {
                 uri: url,
@@ -30,23 +32,20 @@ module.exports = {
                     let category = $detail('.i4sPve').find('span:nth-child(2) a').text()
                     let content_long = $detail('.W4P4ne').html();
                     let mineType = '.apk'
-                    // $detail(".NIc6yf").find('img').map(function () {
-                    //     let check = $detail(this).attr('src');
-                    //     if (check.indexOf('http') != -1) {
-                    //         console.log('check>>>>>', check);
-                    //     }
-                    // }).get();
 
                     // get list slide image 
                     var listimg = '';
                     var listSlide = []
-                    $detail(".NIc6yf").find('img').map(function () {
-                        var imgItem = $detail(this).attr('src');
+                    let ii = 0
+                    $detail(".T4LgNb button").find('img').map(function () {
+                        var imgItem = $detail(this).attr('data-src');
+
                         if (imgItem && imgItem.indexOf('http') != -1) {
+                            ii = ii + 1
                             var str = imgItem
                             var dotIndex = str.lastIndexOf('.');
                             var ext = str.substring(dotIndex);
-                            let filenameData = convertSlug(title) + '-' + imgItem.split("/").pop().split(".")[0] + ext
+                            let filenameData = convertSlug(title) + '-' + ii + '.jpeg'
                             listSlide.push({
                                 url: imgItem,
                                 filename: filenameData
@@ -84,10 +83,10 @@ module.exports = {
                         'atr7': listimg,
                         "listSlide": listSlide
                     }
-                    resSuccess(res, '', [data])
 
                     let options2 = {
-                        url: 'http://localhost:1337/api/articles/auto',
+                        // url: ' http://localhost:1337/api/articles/auto',
+                        url: 'http://api.apksafety.com/api/articles/auto',
                         json: true,
                         body: data,
                         resolveWithFullResponse: true,
@@ -100,11 +99,10 @@ module.exports = {
                         }
                     }
 
-                    // request.post(options2)
-                    //     .then(function (rs) {
-                    //         console.log('INSERT THÀNH CÔNG', res);
-
-                    //     })
+                    request.post(options2)
+                        .then(function (rs) {
+                            resSuccess(res, '', [data])
+                        })
 
                 })
         }
@@ -217,11 +215,10 @@ module.exports = {
                         'atr7': listimg,
                         "listSlide": listSlide
                     }
-                    resSuccess(res, '', [data])
 
                     let options2 = {
-                        //url: 'http://api.apksafety.com/api/articles/auto',
-                        url: ' http://localhost:1337/api/articles/auto',
+                        url: 'http://api.apksafety.com/api/articles/auto',
+                        // url: ' http://localhost:1337/api/articles/auto',
                         json: true,
                         body: data,
                         resolveWithFullResponse: true,
@@ -233,58 +230,51 @@ module.exports = {
                             return response;
                         }
                     }
-                    // request.post(options2)
-                    //     .then(function (rs) {
-                    //         // console.log('INSERT THÀNH CÔNG', rs.body);
-                    //         //---------- TẢI FILE GAME ----------------
+                    request.post(options2)
+                        .then(function (rs) {
+                            // console.log('INSERT THÀNH CÔNG', rs.body);
+                            //---------- TẢI FILE GAME ----------------
 
-                    //         let fileGame = title.replace(/\s/g, "_");
-                    //         fileGame = fileGame.trim()
-                    //         const pathDown = 'game_down/' + convertSlug(title) + mineType
-                    //         // kiểm tra tồn tại file
-                    //         fs.access(pathDown, fs.F_OK, (errFile) => {
-                    //             console.log('errFile>>>>>', errFile);
-
-                    //             if (errFile) {
-                    //                 let optionsDown = {
-                    //                     uri: 'https://apkpure.com' + link_down,
-                    //                     transform: function (dataLink) {
-                    //                         return cheerio.load(dataLink);
-                    //                     }
-                    //                 };
-                    //                 console.log('BẮT ĐẦU TẢI', pathDown)
-                    //                 rpdetail(optionsDown)
-                    //                     .then(function (result2) {
-                    //                         let $detail2 = result2;
-                    //                         let hrefDown = $detail2('#download_link').attr('href');
-                    //                         var pre = '----';
-                    //                         const downloadManager = function (url, filename) {
-                    //                             progress(request(url), {
-                    //                                 throttle: 500
-                    //                             }).on('progress', function (state) {
-                    //                                 process.stdout.write(pre + '' + (Math.round(state.percent * 100)) + "%");
-                    //                             })
-                    //                                 .on('error', function (err) {
-                    //                                     console.log('error :( ' + err);
-                    //                                 })
-                    //                                 .on('end', function () {
-                    //                                     console.log(pre + '100% \n Download Completed');
-                    //                                 })
-                    //                                 .pipe(fs.createWriteStream(filename));
-                    //                         };
-
-
-                    //                         downloadManager(hrefDown, pathDown);
-                    //                     })
-                    //                 return
-                    //             }
-                    //             //file exists
-                    //         })
-
-
-                    //         // //  ----------------------END tải game
-
-                    //     })
+                            let fileGame = title.replace(/\s/g, "_");
+                            fileGame = fileGame.trim()
+                            const pathDown = 'game_down/' + convertSlug(title) + mineType
+                            // kiểm tra tồn tại file
+                            fs.access(pathDown, fs.F_OK, (errFile) => {
+                                if (errFile) {
+                                    let optionsDown = {
+                                        uri: 'https://apkpure.com' + link_down,
+                                        transform: function (dataLink) {
+                                            return cheerio.load(dataLink);
+                                        }
+                                    };
+                                    console.log('BẮT ĐẦU TẢI', pathDown)
+                                    request(optionsDown)
+                                        .then(function (result2) {
+                                            let $detail2 = result2;
+                                            let hrefDown = $detail2('#download_link').attr('href');
+                                            var pre = '----';
+                                            const downloadManager = function (url, filename) {
+                                                progress(request(url), {
+                                                    throttle: 500
+                                                }).on('progress', function (state) {
+                                                    process.stdout.write(pre + '' + (Math.round(state.percent * 100)) + "%");
+                                                })
+                                                    .on('error', function (err) {
+                                                        console.log('error :( ' + err);
+                                                    })
+                                                    .on('end', function () {
+                                                        console.log(pre + '100% \n Download Completed');
+                                                    })
+                                                    .pipe(fs.createWriteStream(filename));
+                                            };
+                                            downloadManager(hrefDown, pathDown);
+                                        })
+                                    return
+                                }
+                                //file exists
+                            })
+                            resSuccess(res, '', [data])
+                        })
 
                 })
         }
@@ -310,7 +300,7 @@ module.exports = {
                 res.type(`image/${format || 'jpeg'}`)
                 resize(pathUploadImage + 'image-not-found.jpg', format, widthTemp, heightTemp).pipe(res)
             }
-        }else{
+        } else {
             res.type(`image/${format || 'jpeg'}`)
             resize(pathUploadImage + 'image-not-found.jpg', format, widthTemp, heightTemp).pipe(res)
         }
@@ -568,14 +558,20 @@ module.exports = {
 
             let data = req.body
             let type = thumbnail.split('.').pop();
-            let imageName = 'thumbnail_' + title_slug + '.' + type;
+            if (thumbnail.indexOf('lh3.googleusercontent.com') != -1) {
+                type = 'jpeg'
+            }
+            let imageName = 'thumbnail_' + title_slug + '.' + (type || 'jpeg');
 
             let typeSlide = atr4.split('.').pop();
+            if (atr4.indexOf('lh3.googleusercontent.com') != -1) {
+                typeSlide = 'jpeg'
+            }
             let imageSlide = 'imageSlide_' + title_slug + '.' + typeSlide;
 
             data.thumbnail = imageName
             data.atr4 = imageSlide
-
+            console.log('listSlide', listSlide);
             Articles.create(data).exec((errInsert, result) => {
                 if (errInsert) {
                     resError(res, errInsert)
@@ -583,6 +579,8 @@ module.exports = {
                 else {
                     //===========UPLOAD THUMBNAIL
                     if (thumbnail) {
+                        console.log('thumbnail', thumbnail);
+
                         saveFileImage(thumbnail, imageName, pathUploadImage)
                     }
                     if (atr4) {
