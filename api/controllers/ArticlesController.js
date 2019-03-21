@@ -12,7 +12,6 @@ let cheerio = require('cheerio');
 module.exports = {
     'getLink': (req, res) => {
         let { url } = req.body
-        console.log('url', url);
 
         if (url.indexOf('play.google') != -1) {
             var optionsDetail = {
@@ -83,6 +82,7 @@ module.exports = {
                         'atr7': listimg,
                         "listSlide": listSlide
                     }
+                    console.log('data>>>>>>>>>>', data);
 
                     let options2 = {
                         // url: ' http://localhost:1337/api/articles/auto',
