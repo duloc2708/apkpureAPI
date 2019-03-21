@@ -63,7 +63,7 @@ module.exports = {
                         "title": title,
                         "title_slug": convertSlug(title),
                         "thumbnail": avatar,
-                        "type": category,
+                        "type": convertSlug(category),
                         "tags": convertSlug(title),
                         "view": "0",
                         "content_short": title,
@@ -85,8 +85,8 @@ module.exports = {
                     }
 
                     let options2 = {
-                        // url: ' http://localhost:1337/api/articles/auto',
-                        url: 'http://api.apksafety.com/api/articles/auto',
+                        url: ' http://localhost:1337/api/articles/auto',
+                        // url: 'http://api.apksafety.com/api/articles/auto',
                         json: true,
                         body: data,
                         resolveWithFullResponse: true,
@@ -217,8 +217,8 @@ module.exports = {
                     }
 
                     let options2 = {
-                        url: 'http://api.apksafety.com/api/articles/auto',
-                        // url: ' http://localhost:1337/api/articles/auto',
+                        // url: 'http://api.apksafety.com/api/articles/auto',
+                        url: ' http://localhost:1337/api/articles/auto',
                         json: true,
                         body: data,
                         resolveWithFullResponse: true,
@@ -550,18 +550,18 @@ module.exports = {
         }
     },
     'autoAddArticles': (req, res) => {
-        let { title, list_image, title_slug, id, tags, atr4, thumbnail, listSlide } = req.body
+        let { title, list_image, title_slug, id, tags, atr4, thumbnail, listSlide, type } = req.body
 
         Articles.find({ title: title }).exec((err, usr) => {
             if (err) return resError(res, err)
             if (usr.length > 0) return resError(res, 'TITLE_EXISTS')
 
             let data = req.body
-            let type = thumbnail.split('.').pop();
+            let typeImg = thumbnail.split('.').pop();
             if (thumbnail.indexOf('lh3.googleusercontent.com') != -1) {
-                type = 'jpeg'
+                typeImg = 'jpeg'
             }
-            let imageName = 'thumbnail_' + title_slug + '.' + (type || 'jpeg');
+            let imageName = 'thumbnail_' + title_slug + '.' + (typeImg || 'jpeg');
 
             let typeSlide = atr4.split('.').pop();
             if (atr4.indexOf('lh3.googleusercontent.com') != -1) {
@@ -580,7 +580,6 @@ module.exports = {
                     //===========UPLOAD THUMBNAIL
                     if (thumbnail) {
                         console.log('thumbnail', thumbnail);
-
                         saveFileImage(thumbnail, imageName, pathUploadImage)
                     }
                     if (atr4) {
@@ -591,6 +590,20 @@ module.exports = {
                             saveFileImage(item.url, item.filename, pathUploadImage)
                         })
                     }
+
+                    ListType.find({ code: type }).exec((err, usrType) => {
+                        if (usrType.length == 0) {
+                            let objData = {
+                                code: type,
+                                name: type,
+                                slug: type,
+                                numOrder: 0
+                            }
+                            ListType.create(objData).exec((err, result) => {
+                            });
+                        }
+                    })
+
                     resSuccess(res, '', [])
                 }
             });
