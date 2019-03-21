@@ -24,21 +24,22 @@ module.exports = {
                 .then(function (resultdt) {
                     let $detail = resultdt;
                     let htmlAll = $detail('.T4LgNb').html();
-                    let img_large = $detail('.dQrBL').find('img').attr('src')
-                    let thumbnail = $detail('.dQrBL').find('img').attr('src')
-                    let avatar = $detail('.dQrBL').find('img').attr('src')
+                    let img_large = $detail('.LXrl4c').find('img:nth-child(1)').attr('src')
+                    let thumbnail = img_large
+                    let avatar = img_large
                     let title = $detail('.AHFaub').find('span').text()
                     let category = $detail('.i4sPve').find('span:nth-child(2) a').text()
                     let content_long = $detail('.W4P4ne').html();
                     let mineType = '.apk'
 
+                    let testImage = $detail('.LXrl4c').find('img:nth-child(1)').attr('src')
+                    console.log('testImage', testImage);
                     // get list slide image 
                     var listimg = '';
                     var listSlide = []
                     let ii = 0
                     $detail(".T4LgNb button").find('img').map(function () {
                         var imgItem = $detail(this).attr('data-src');
-
                         if (imgItem && imgItem.indexOf('http') != -1) {
                             ii = ii + 1
                             var str = imgItem
@@ -57,12 +58,16 @@ module.exports = {
                     if (listimg) {
                         listimg = listimg.substr(0, listimg.length - 1)
                     }
-
+                    let code_type = ''
+                    $detail('.T4LgNb').find('a[itemprop="genre"]').each(function () {
+                        var url = $detail(this).attr('href');
+                        code_type = url && (url.split('/').pop()).toLowerCase() || '';
+                    });
                     let data = {
                         "title": title,
                         "title_slug": convertSlug(title),
                         "thumbnail": avatar,
-                        "type": convertSlug(category),
+                        "type": code_type,
                         "tags": convertSlug(title),
                         "view": "0",
                         "content_short": title,
@@ -82,8 +87,6 @@ module.exports = {
                         'atr7': listimg,
                         "listSlide": listSlide
                     }
-                    console.log('data>>>>>>>>>>', data);
-
                     let options2 = {
                         // url: ' http://localhost:1337/api/articles/auto',
                         url: 'http://api.apksafety.com/api/articles/auto',
@@ -217,8 +220,8 @@ module.exports = {
                     }
 
                     let options2 = {
-                        url: 'http://api.apksafety.com/api/articles/auto',
-                        // url: ' http://localhost:1337/api/articles/auto',
+                        // url: 'http://api.apksafety.com/api/articles/auto',
+                        url: ' http://localhost:1337/api/articles/auto',
                         json: true,
                         body: data,
                         resolveWithFullResponse: true,
@@ -571,7 +574,6 @@ module.exports = {
 
             data.thumbnail = imageName
             data.atr4 = imageSlide
-            console.log('listSlide', listSlide);
             Articles.create(data).exec((errInsert, result) => {
                 if (errInsert) {
                     resError(res, errInsert)
