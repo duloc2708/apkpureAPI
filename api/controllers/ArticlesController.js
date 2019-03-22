@@ -394,115 +394,123 @@ module.exports = {
         }
     },
     'testData': (req, res) => {
-        try {
-            let cheerio = require('cheerio');
-            Articles.find({ where: { atr8: '' } }, (err, data) => {
-                data.map(item => {
-                    let options2 = {
-                        url: 'http://api.apksafety.com/api/articles/auto',
-                        json: true,
-                        body: item,
-                        resolveWithFullResponse: true,
-                        gzip: true,
-                        transform: function (body, response) {
-                            if (response.headers['content-type'] === 'application/json') {
-                                response.body = JSON.parse(body);
-                            }
-                            return response;
-                        }
-                    }
-                    request.post(options2)
-                        .then(function (rs) {
-                            console.log('rs>>>>>>>>>>>>', rs.body);
-
-                        })
-                })
-
-                // Articles.create(data).exec((errInsert, result) => {
-                //     console.log('errInsert',errInsert);
-
-                // })
-                // // console.log('data>>>>>>>>>>>>', data);
-
-
-            })
-            resSuccess(res, '', [])
-        } catch (err) {
-            resError(res, err.toString())
-        }
-        // try {
-        //     console.log('testData>>>>>>>>>>>>');
+        //try {
         //     let cheerio = require('cheerio');
-        //     Articles.find({ where: { atr8: '' } }, (err, data) => {
-        //         console.log('err>>>>>>>>>>>>', err);
+        //     Articles.find({ where: { atr10: '' } }, (err, data) => {
+        //         data.map(item => {
+        //             let options2 = {
+        //                 url: 'http://api.apksafety.com/api/articles/auto',
+        //                 json: true,
+        //                 body: item,
+        //                 resolveWithFullResponse: true,
+        //                 gzip: true,
+        //                 transform: function (body, response) {
+        //                     if (response.headers['content-type'] === 'application/json') {
+        //                         response.body = JSON.parse(body);
+        //                     }
+        //                     return response;
+        //                 }
+        //             }
+        //             request.post(options2)
+        //                 .then(function (rs) {
+        //                     console.log('rs>>>>>>>>>>>>', rs.body);
 
-        //         // console.log('data>>>>>>>>>>>>', data);
+        //                 })
+        //         })
 
-        //         data.map((item) => {
-        //             let itemTemp = item
-        //             // let content = '<div id="main">' + itemTemp.content_long + '</div>';
-        //             // let $ = cheerio.load(content);
-        //             // var listimg = '';
-        //             // $("#main").find('.mpopup img').map(function () {
-        //             //     let imgItem = $(this).attr('src');
-        //             //     listimg = listimg + imgItem + ','
-        //             // })
-        //             // if (listimg) {
-        //             //     listimg = listimg.substr(0, listimg.length - 1)
-        //             // }
-        //             // // console.log('listimg>>>>>>',listimg);
-        //             // let des = $("#main").find('#describe').html()
-        //             // itemTemp.content_long = des
-        //             // itemTemp.atr7 = listimg
-        //             // var string = JSON.stringify(itemTemp);
-        //             // var json = JSON.parse(string);
-        //             // let arrData = itemTemp.atr7.split(',')
-        //             // let listSlide = []
-        //             // var listimg = '';
-        //             // var imgFirts = '';
-        //             // if (arrData.length > 0) {
-        //             //     arrData.map((itemImg, i) => {
-        //             //         var str = itemImg
-        //             //         var dotIndex = str.lastIndexOf('.');
-        //             //         var ext = str.substring(dotIndex);
+        //         // Articles.create(data).exec((errInsert, result) => {
+        //         //     console.log('errInsert',errInsert);
 
-        //             //         let filenameData = (itemTemp.title_slug) + '-screen-' + i + ext
+        //         // })
+        //         // // console.log('data>>>>>>>>>>>>', data);
 
-        //             //         listimg = listimg + filenameData + ','
-        //             //         listSlide.push({
-        //             //             url: str,
-        //             //             filename: filenameData
-        //             //         })
-        //             //         if (i == 0) {
-        //             //             imgFirts = filenameData
-        //             //         }
-        //             //     })
-        //             // }
-        //             // if (listimg) {
-        //             //     listimg = listimg.substr(0, listimg.length - 1)
-        //             // }
-        //             // console.log('listimg', listimg);
 
-        //             // // if (listSlide.length > 0) {
-        //             // //     listSlide.map(item => {
-        //             // //         saveFileImage(item.url, item.filename, pathUploadImage)
-        //             // //         console.log('listSlide thành công>>>>>>', item.url);
-
-        //             // //     })
-        //             // // }
-        //             // json.atr4 = imgFirts
-        //             // json.atr7 = listimg
-
-        //             // Articles.update({ id: json.id }, json).exec((err, result) => {
-        //             //     console.log('thành công', json.id, json.atr4);
-        //             // });
-
-        //         });
         //     })
         //     resSuccess(res, '', [])
         // } catch (err) {
         //     resError(res, err.toString())
         // }
+
+
+        try {
+            let cheerio = require('cheerio');
+            Articles.find({ where: { atr10: '' } }, (err, data) => {
+
+                data.map((item) => {
+                    let itemTemp = item
+                    let content = itemTemp.content_long
+
+                    content = content.replace(/<a [^>]+>[^<]*<\/a>/, '');
+                    content = content.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
+                    itemTemp.content_long = content
+
+                    var string = JSON.stringify(itemTemp);
+                    var json = JSON.parse(string);
+                    Articles.update({ id: json.id }, json).exec((err, result) => {
+                        console.log('thành công', json.id);
+                    });
+                    // let $ = cheerio.load(cntent);
+                    // var listimg = '';
+                    // $("#main").find('.mpopup img').map(function () {
+                    //     let imgItem = $(this).attr('src');
+                    //     listimg = listimg + imgItem + ','
+                    // })
+                    // if (listimg) {
+                    //     listimg = listimg.substr(0, listimg.length - 1)
+                    // }
+                    // // console.log('listimg>>>>>>',listimg);
+                    // let des = $("#main").find('#describe').html()
+                    // itemTemp.content_long = des
+                    // itemTemp.atr7 = listimg
+                    // var string = JSON.stringify(itemTemp);
+                    // var json = JSON.parse(string);
+                    // let arrData = itemTemp.atr7.split(',')
+                    // let listSlide = []
+                    // var listimg = '';
+                    // var imgFirts = '';
+                    // if (arrData.length > 0) {
+                    //     arrData.map((itemImg, i) => {
+                    //         var str = itemImg
+                    //         var dotIndex = str.lastIndexOf('.');
+                    //         var ext = str.substring(dotIndex);
+
+                    //         let filenameData = (itemTemp.title_slug) + '-screen-' + i + ext
+
+                    //         listimg = listimg + filenameData + ','
+                    //         listSlide.push({
+                    //             url: str,
+                    //             filename: filenameData
+                    //         })
+                    //         if (i == 0) {
+                    //             imgFirts = filenameData
+                    //         }
+                    //     })
+                    // }
+                    // if (listimg) {
+                    //     listimg = listimg.substr(0, listimg.length - 1)
+                    // }
+                    // console.log('listimg', listimg);
+
+                    // // if (listSlide.length > 0) {
+                    // //     listSlide.map(item => {
+                    // //         saveFileImage(item.url, item.filename, pathUploadImage)
+                    // //         console.log('listSlide thành công>>>>>>', item.url);
+
+                    // //     })
+                    // // }
+                    // json.atr4 = imgFirts
+                    // json.atr7 = listimg
+
+                    // Articles.update({ id: json.id }, json).exec((err, result) => {
+                    //     console.log('thành công', json.id, json.atr4);
+                    // });
+
+                });
+            })
+            resSuccess(res, '', [])
+        } catch (err) {
+            resError(res, err.toString())
+        }
     },
     'dataSiteMapPost': (req, res) => {
         try {
