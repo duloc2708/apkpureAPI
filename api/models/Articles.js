@@ -46,8 +46,16 @@ module.exports = {
       columnType: 'TEXT',
       allowNull: true,
     },
-    atr8: 'string',
-    atr9: 'string',
+    atr8: {
+      type: 'string',
+      columnType: 'TEXT',
+      allowNull: true,
+    },
+    atr9: {
+      type: 'string',
+      columnType: 'TEXT',
+      allowNull: true,
+    },
     atr10: 'string',
     // createdAt: { type: 'string', columnType: 'datetime', autoCreatedAt: true, },
     // updatedAt: { type: 'string', columnType: 'datetime', autoUpdatedAt: true, },

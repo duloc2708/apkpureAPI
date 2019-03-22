@@ -85,7 +85,9 @@ module.exports = {
                         "atr5": '',
                         "atr6": '',
                         'atr7': listimg,
-                        "listSlide": listSlide
+                        "listSlide": listSlidem,
+                        "atr8": title,
+                        "atr9": title
                     }
                     let options2 = {
                         // url: ' http://localhost:1337/api/articles/auto',
@@ -216,7 +218,9 @@ module.exports = {
                         "atr5": fsize || '',
                         "atr6": version || '',
                         'atr7': listimg,
-                        "listSlide": listSlide
+                        "listSlide": listSlide,
+                        "atr8": title,
+                        "atr9": title
                     }
 
                     let options2 = {
