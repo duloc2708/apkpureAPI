@@ -63,6 +63,8 @@ module.exports = {
                         var url = $detail(this).attr('href');
                         code_type = url && (url.split('/').pop()).toLowerCase() || '';
                     });
+                    content_long = content_long.replace(/<a [^>]+>[^<]*<\/a>/, '');
+                    content_long = content_long.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
                     let data = {
                         "title": title,
                         "title_slug": convertSlug(title),
@@ -195,7 +197,8 @@ module.exports = {
                         fsize = fsize.replace(/[`~!@#$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi, '');
 
                     }
-
+                    content_long = content_long.replace(/<a [^>]+>[^<]*<\/a>/, '');
+                    content_long = content_long.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
                     let data = {
                         "title": title,
                         "title_slug": convertSlug(title),
