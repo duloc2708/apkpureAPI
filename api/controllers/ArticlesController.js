@@ -303,6 +303,7 @@ module.exports = {
         }
         let pathImage = pathUploadImage + name
         res.setHeader("Cache-Control", "public, max-age=31536000, no Etag, no Last-Modified");
+        res.setHeader("Expires", new Date(Date.now() + 31536000).toUTCString());
         if (name) {
             if (fs.existsSync(pathImage)) {
                 res.type(`image/${format || 'jpeg'}`)
