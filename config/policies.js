@@ -13,6 +13,7 @@ module.exports.policies = {
     'dataSiteMapPost': true,
     'testData': true,
     'getImage': true,
-    'getLink': true
+    'getLink': true,
+    'getDataBySearch':true
   }
 };

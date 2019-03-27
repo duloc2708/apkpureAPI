@@ -10,6 +10,17 @@ var Jimp = require("jimp");
 var request = require('request-promise');
 let cheerio = require('cheerio');
 module.exports = {
+    'getDataBySearch': (req, res) => {
+        let { q } = req.query
+        try {
+            Articles.getDatastore().sendNativeQuery(`CALL artcles_getBlogBySection('${q}')`, [], (err, data) => {
+                if (err) return resError(res, err)
+                resSuccess(res, '', data.rows[0])
+            });
+        } catch (err) {
+            resError(res, err.toString())
+        }
+    },
     'getLink': (req, res) => {
         let { url } = req.body
 
