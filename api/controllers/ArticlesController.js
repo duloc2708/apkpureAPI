@@ -12,6 +12,8 @@ let cheerio = require('cheerio');
 module.exports = {
     'getDataBySearch': (req, res) => {
         let { q } = req.query
+        console.log('q>>>>>',q);
+        
         try {
             Articles.getDatastore().sendNativeQuery(`CALL artcles_getDataBySearch('${q}')`, [], (err, data) => {
                 if (err) return resError(res, err)
