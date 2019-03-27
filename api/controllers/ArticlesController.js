@@ -13,7 +13,7 @@ module.exports = {
     'getDataBySearch': (req, res) => {
         let { q } = req.query
         try {
-            Articles.getDatastore().sendNativeQuery(`CALL artcles_getBlogBySection('${q}')`, [], (err, data) => {
+            Articles.getDatastore().sendNativeQuery(`CALL artcles_getDataBySearch('${q}')`, [], (err, data) => {
                 if (err) return resError(res, err)
                 resSuccess(res, '', data.rows[0])
             });
