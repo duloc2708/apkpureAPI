@@ -12,8 +12,7 @@ let cheerio = require('cheerio');
 module.exports = {
     'getDataBySearch': (req, res) => {
         let { q } = req.query
-        console.log('q>>>>>',q);
-        
+        res.setHeader("Cache-Control", "public, max-age=31536000,no Etag, no Last-Modified'");
         try {
             Articles.getDatastore().sendNativeQuery(`CALL artcles_getDataBySearch('${q}')`, [], (err, data) => {
                 if (err) return resError(res, err)
@@ -530,6 +529,7 @@ module.exports = {
         }
     },
     'dataSiteMapPost': (req, res) => {
+        res.setHeader("Cache-Control", "public, max-age=31536000,no Etag, no Last-Modified'");
         try {
             Articles.getDatastore().sendNativeQuery('CALL articles_getAllSiteMap', [], (err, data) => {
                 if (err) return resError(res, err)
@@ -540,6 +540,7 @@ module.exports = {
         }
     },
     'dataSiteMapListType': (req, res) => {
+        res.setHeader("Cache-Control", "public, max-age=31536000,no Etag, no Last-Modified'");
         try {
             Articles.getDatastore().sendNativeQuery('CALL listtype_getAllData', [], (err, data) => {
                 if (err) return resError(res, err)
@@ -572,6 +573,7 @@ module.exports = {
     },
     'getBlogBySection': (req, res) => {
         let { type } = req.query
+        res.setHeader("Cache-Control", "public, max-age=31536000,no Etag, no Last-Modified'");
         try {
             Articles.getDatastore().sendNativeQuery(`CALL artcles_getBlogBySection('${type}')`, [], (err, data) => {
                 if (err) return resError(res, err)
