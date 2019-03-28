@@ -562,6 +562,7 @@ module.exports = {
     },
     'getBlogDetail': (req, res) => {
         let { title_slug } = req.query
+        res.setHeader("Cache-Control", "public, max-age=31536000,no Etag, no Last-Modified'");
         try {
             Articles.getDatastore().sendNativeQuery(`CALL artcles_getBlogDetail('${title_slug}')`, [], (err, data) => {
                 if (err) return resError(res, err)
@@ -585,7 +586,6 @@ module.exports = {
     },
     'autoAddArticles': (req, res) => {
         let { title, list_image, title_slug, id, tags, atr4, thumbnail, listSlide, type } = req.body
-
         Articles.find({ title: title }).exec((err, usr) => {
             if (err) return resError(res, err)
             if (usr.length > 0) return resError(res, 'TITLE_EXISTS')
