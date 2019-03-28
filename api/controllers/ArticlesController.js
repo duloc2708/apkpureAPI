@@ -12,7 +12,8 @@ let cheerio = require('cheerio');
 module.exports = {
     'getDataBySearch': (req, res) => {
         let { q } = req.query
-        res.setHeader("Cache-Control", "public, max-age=31536000,no Etag, no Last-Modified'");
+        console.log('q>>>>>',q);
+        
         try {
             Articles.getDatastore().sendNativeQuery(`CALL artcles_getDataBySearch('${q}')`, [], (err, data) => {
                 if (err) return resError(res, err)
@@ -529,7 +530,6 @@ module.exports = {
         }
     },
     'dataSiteMapPost': (req, res) => {
-        res.setHeader("Cache-Control", "public, max-age=31536000,no Etag, no Last-Modified'");
         try {
             Articles.getDatastore().sendNativeQuery('CALL articles_getAllSiteMap', [], (err, data) => {
                 if (err) return resError(res, err)
@@ -540,7 +540,6 @@ module.exports = {
         }
     },
     'dataSiteMapListType': (req, res) => {
-        res.setHeader("Cache-Control", "public, max-age=31536000,no Etag, no Last-Modified'");
         try {
             Articles.getDatastore().sendNativeQuery('CALL listtype_getAllData', [], (err, data) => {
                 if (err) return resError(res, err)
@@ -562,7 +561,6 @@ module.exports = {
     },
     'getBlogDetail': (req, res) => {
         let { title_slug } = req.query
-        res.setHeader("Cache-Control", "public, max-age=31536000,no Etag, no Last-Modified'");
         try {
             Articles.getDatastore().sendNativeQuery(`CALL artcles_getBlogDetail('${title_slug}')`, [], (err, data) => {
                 if (err) return resError(res, err)
@@ -574,7 +572,6 @@ module.exports = {
     },
     'getBlogBySection': (req, res) => {
         let { type } = req.query
-        res.setHeader("Cache-Control", "public, max-age=31536000,no Etag, no Last-Modified'");
         try {
             Articles.getDatastore().sendNativeQuery(`CALL artcles_getBlogBySection('${type}')`, [], (err, data) => {
                 if (err) return resError(res, err)
@@ -586,6 +583,7 @@ module.exports = {
     },
     'autoAddArticles': (req, res) => {
         let { title, list_image, title_slug, id, tags, atr4, thumbnail, listSlide, type } = req.body
+
         Articles.find({ title: title }).exec((err, usr) => {
             if (err) return resError(res, err)
             if (usr.length > 0) return resError(res, 'TITLE_EXISTS')
