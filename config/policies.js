@@ -14,8 +14,13 @@ module.exports.policies = {
     'testData': true,
     'getImage': true,
     'getLink': true,
-    'getDataBySearch':true,
-    'getDataBySearch':true,
-    'updateView':true
+    'getDataBySearch': true,
+    'getDataBySearch': true,
+    'updateView': true,
+    'getDataPageService': true
+  },
+  'PageServiceController': {
+    'getDataPageService': true,
+    'getSearchDetail': true
   }
 };

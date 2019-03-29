@@ -10,6 +10,8 @@ const addRoutes = (data) => {
 let listRoutes = { '/': { view: 'pages/homepage' } };// routest default home
 fs.readdirSync(routesFolder).forEach(file => {
   const routesFile = require(`../${routesFolder+file}`);
+  console.log('routesFile',routesFile);
+  
   addRoutes(routesFile)
 });
 

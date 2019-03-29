@@ -38,4 +38,11 @@ module.exports = {
         { api: 'post /api/video/update', action: 'updateVideo' },
         { api: '/api/video/delete', action: 'deleteVideo' }
     ],
+    LIST_API_PAGE_SERVICE: [
+        { api: 'get /api/pageservice/get_service_detail', action: 'getSearchDetail' },
+        { api: '/api/pageservice', action: 'getDataPageService' },
+        { api: 'post /api/pageservice/add', action: 'addPageService' },
+        { api: 'post /api/pageservice/update', action: 'updatePageService' },
+        { api: '/api/pageservice/delete', action: 'deletePageService' }
+    ],
 }
