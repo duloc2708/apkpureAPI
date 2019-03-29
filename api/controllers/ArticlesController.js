@@ -10,10 +10,18 @@ var Jimp = require("jimp");
 var request = require('request-promise');
 let cheerio = require('cheerio');
 module.exports = {
+    'updateView': (req, res) => {
+        let { obj } = req.body
+        try {
+            Articles.update({ id: obj.id }, obj).exec((err, result) => {
+                resSuccess(res, '', [])
+            });
+        } catch (err) {
+            resError(res, err.toString())
+        }
+    },
     'getDataBySearch': (req, res) => {
         let { q } = req.query
-        console.log('q>>>>>',q);
-        
         try {
             Articles.getDatastore().sendNativeQuery(`CALL artcles_getDataBySearch('${q}')`, [], (err, data) => {
                 if (err) return resError(res, err)
@@ -100,10 +108,10 @@ module.exports = {
                         "atr5": '',
                         "atr6": '',
                         'atr7': listimg,
-                        "listSlide": listSlidem,
+                        "listSlide": listSlide,
                         "atr8": title,
                         "atr9": title
-                    }
+                    }                    
                     let options2 = {
                         // url: ' http://localhost:1337/api/articles/auto',
                         url: 'http://api.apksafety.com/api/articles/auto',

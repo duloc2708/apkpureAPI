@@ -21,7 +21,7 @@ module.exports = {
         { api: '/api/articles/testData', action: 'testData' },
         { api: '/api/image', action: 'getImage' },
         { api: '/api/getLink', action: 'getLink' },
-        
+        { api: 'post /api/articles/update_view', action: 'updateView' },
     ],
     LIST_API_USER: [
         { api: 'post /api/users/login', action: 'login' },
