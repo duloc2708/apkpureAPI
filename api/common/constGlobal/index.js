@@ -26,7 +26,11 @@ module.exports = {
     LIST_API_USER: [
         { api: 'post /api/users/login', action: 'login' },
         { api: 'post /api/users/register', action: 'register' },
-        { api: '/api/users/check', action: 'check' }
+        { api: '/api/users/check', action: 'check' },
+        { api: '/api/users', action: 'listUsers' },
+        { api: 'post /api/users/add', action: 'addUsers' },
+        { api: 'post /api/users/update', action: 'updateUsers' },
+        { api: '/api/users/delete', action: 'deleteUsers' }
     ],
     LIST_API_VIDEO: [
         { api: 'get /api/video', action: 'getDataVideo' },
