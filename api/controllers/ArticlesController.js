@@ -111,7 +111,7 @@ module.exports = {
                         "listSlide": listSlide,
                         "atr8": title,
                         "atr9": title
-                    }                    
+                    }
                     let options2 = {
                         // url: ' http://localhost:1337/api/articles/auto',
                         url: 'http://api.apksafety.com/api/articles/auto',
@@ -598,12 +598,18 @@ module.exports = {
 
             let data = req.body
             let typeImg = thumbnail.split('.').pop();
+            if (typeImg.indexOf('?') != -1) {
+                typeImg = typeImg.substring(0, typeImg.indexOf("?"));
+            }
             if (thumbnail.indexOf('lh3.googleusercontent.com') != -1) {
                 typeImg = 'jpeg'
             }
             let imageName = 'thumbnail_' + title_slug + '.' + (typeImg || 'jpeg');
 
             let typeSlide = atr4.split('.').pop();
+            if (typeSlide.indexOf('?') != -1) {
+                typeSlide = typeSlide.substring(0, typeSlide.indexOf("?"));
+            }
             if (atr4.indexOf('lh3.googleusercontent.com') != -1) {
                 typeSlide = 'jpeg'
             }
