@@ -115,8 +115,8 @@ module.exports = {
                         "atr9": title
                     }
                     let options2 = {
-                        // url: ' http://localhost:1337/api/articles/auto',
-                        url: 'http://api.apksafety.com/api/articles/auto',
+                        url: ' http://localhost:1337/api/articles/auto',
+                        // url: 'http://api.apksafety.com/api/articles/auto',
                         json: true,
                         body: data,
                         resolveWithFullResponse: true,
@@ -267,15 +267,20 @@ module.exports = {
                     }
                     request.post(options2)
                         .then(function (rs) {
-                            // console.log('INSERT THÀNH CÔNG', rs.body);
+                            console.log('INSERT THÀNH CÔNG', rs.body);
                             //---------- TẢI FILE GAME ----------------
 
                             let fileGame = title.replace(/\s/g, "_");
                             fileGame = fileGame.trim()
                             const pathDown = 'game_down/' + convertSlug(title) + mineType
                             // kiểm tra tồn tại file
+                            console.log('pathDown', pathDown);
+
                             fs.access(pathDown, fs.F_OK, (errFile) => {
+                                console.log('errFile', errFile);
+
                                 if (errFile) {
+
                                     let optionsDown = {
                                         uri: 'https://apkpure.com' + link_down,
                                         transform: function (dataLink) {
