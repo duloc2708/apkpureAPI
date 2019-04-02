@@ -202,6 +202,9 @@ module.exports = {
                         var dotIndex = str.lastIndexOf('.');
                         var ext = str.substring(dotIndex);
                         let filenameData = convertSlug(title) + '-' + imgItem.split("/").pop().split(".")[0] + ext
+                        if (filenameData.indexOf('?') != -1) {
+                            filenameData = filenameData.substring(0, filenameData.indexOf("?"));
+                        }
                         listSlide.push({
                             url: imgItem,
                             filename: filenameData
@@ -209,7 +212,6 @@ module.exports = {
 
                         listimg = listimg + filenameData + ','
                     });
-
                     if (listimg) {
                         listimg = listimg.substr(0, listimg.length - 1)
                     }
