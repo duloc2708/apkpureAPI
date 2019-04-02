@@ -9,6 +9,8 @@ const pathUploadImage = 'assets/images/'
 var Jimp = require("jimp");
 var request = require('request-promise');
 let cheerio = require('cheerio');
+var progress = require('request-progress');
+
 module.exports = {
     'updateView': (req, res) => {
         let { obj } = req.body
