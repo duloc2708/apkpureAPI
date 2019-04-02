@@ -252,8 +252,8 @@ module.exports = {
                     }
 
                     let options2 = {
-                        // url: 'http://api.apksafety.com/api/articles/auto',
-                        url: ' http://localhost:1337/api/articles/auto',
+                        url: 'http://api.apksafety.com/api/articles/auto',
+                        // url: ' http://localhost:1337/api/articles/auto',
                         json: true,
                         body: data,
                         resolveWithFullResponse: true,
