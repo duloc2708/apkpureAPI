@@ -252,8 +252,8 @@ module.exports = {
                     }
 
                     let options2 = {
-                        url: 'http://api.apksafety.com/api/articles/auto',
-                        // url: ' http://localhost:1337/api/articles/auto',
+                        // url: 'http://api.apksafety.com/api/articles/auto',
+                        url: ' http://localhost:1337/api/articles/auto',
                         json: true,
                         body: data,
                         resolveWithFullResponse: true,
@@ -267,6 +267,9 @@ module.exports = {
                     }
                     request.post(options2)
                         .then(function (rs) {
+
+
+
                             console.log('INSERT THÀNH CÔNG', rs.body);
                             //---------- TẢI FILE GAME ----------------
 
@@ -276,43 +279,29 @@ module.exports = {
                             // kiểm tra tồn tại file
                             console.log('pathDown', pathDown);
 
-                            fs.access(pathDown, fs.F_OK, (errFile) => {
-                                console.log('errFile', errFile);
-
-                                if (errFile) {
-
-                                    let optionsDown = {
-                                        uri: 'https://apkpure.com' + link_down,
-                                        transform: function (dataLink) {
-                                            return cheerio.load(dataLink);
-                                        }
-                                    };
-                                    console.log('BẮT ĐẦU TẢI', pathDown)
-                                    request(optionsDown)
-                                        .then(function (result2) {
-                                            let $detail2 = result2;
-                                            let hrefDown = $detail2('#download_link').attr('href');
-                                            var pre = '----';
-                                            const downloadManager = function (url, filename) {
-                                                progress(request(url), {
-                                                    throttle: 500
-                                                }).on('progress', function (state) {
-                                                    process.stdout.write(pre + '' + (Math.round(state.percent * 100)) + "%");
-                                                })
-                                                    .on('error', function (err) {
-                                                        console.log('error :( ' + err);
-                                                    })
-                                                    .on('end', function () {
-                                                        console.log(pre + '100% \n Download Completed');
-                                                    })
-                                                    .pipe(fs.createWriteStream(filename));
-                                            };
-                                            downloadManager(hrefDown, pathDown);
-                                        })
-                                    return
+                            let optionsDown = {
+                                // url: 'http://api.apksafety.com/api/articles/auto',
+                                url: 'http://apkverified.com/api/articles/upload_file_apk',
+                                json: true,
+                                body: {
+                                    pathDown: pathDown,
+                                    link_down: link_down
+                                },
+                                resolveWithFullResponse: true,
+                                gzip: true,
+                                transform: function (body, response) {
+                                    if (response.headers['content-type'] === 'application/json') {
+                                        response.body = JSON.parse(body);
+                                    }
+                                    return response;
                                 }
-                                //file exists
-                            })
+                            }
+                            // đẩy link down qua server apk
+                            request.post(optionsDown)
+                                .then(function (rs) {
+                                    console.log('đẩy file thành công');
+        
+                                })
                             resSuccess(res, '', [data])
                         })
 
