@@ -17,7 +17,8 @@ module.exports.policies = {
     'getDataBySearch': true,
     'getDataBySearch': true,
     'updateView': true,
-    'getDataPageService': true
+    'getDataPageService': true,
+    'getLinkAPKManual': true
   },
   'PageServiceController': {
     'getDataPageService': true,

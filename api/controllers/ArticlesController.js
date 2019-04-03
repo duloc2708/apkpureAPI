@@ -10,8 +10,21 @@ var Jimp = require("jimp");
 var request = require('request-promise');
 let cheerio = require('cheerio');
 var progress = require('request-progress');
+var rpdetail = require('request-promise');
 
 module.exports = {
+    'getLinkAPKManual': (req, res) => {
+        let { title_slug } = req.query
+        console.log('getLinkAPKManual>>>', title_slug);
+        try {
+            Articles.getDatastore().sendNativeQuery(`CALL artcles_getBlogDetail('${title_slug}')`, [], (err, data) => {
+                if (err) return resError(res, err)
+                resSuccess(res, '', data.rows[0])
+            });
+        } catch (err) {
+            resError(res, err.toString())
+        }
+    },
     'updateView': (req, res) => {
         let { obj } = req.body
         try {
@@ -224,69 +237,52 @@ module.exports = {
                     }
                     content_long = content_long.replace(/<a [^>]+>[^<]*<\/a>/, '');
                     content_long = content_long.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
-                    let data = {
-                        "title": title,
-                        "title_slug": convertSlug(title),
-                        "thumbnail": avatar,
-                        "type": category,
-                        "tags": category,
-                        "view": "0",
-                        "content_short": title,
-                        "content_long": content_long,
-                        "source": "test",
-                        "status": "active",
-                        "created_by": "admin",
-                        "numWord": "0",
-                        "numChar": "0",
-                        "levels": "0",
-                        "atr1": 'https://apkpure.com' + link_down,
-                        "atr2": convertSlug(title),
-                        "atr3": mineType,
-                        "atr4": img_large,
-                        "atr5": fsize || '',
-                        "atr6": version || '',
-                        'atr7': listimg,
-                        "listSlide": listSlide,
-                        "atr8": title,
-                        "atr9": title
-                    }
-
-                    let options2 = {
-                        // url: 'http://api.apksafety.com/api/articles/auto',
-                        url: ' http://localhost:1337/api/articles/auto',
-                        json: true,
-                        body: data,
-                        resolveWithFullResponse: true,
-                        gzip: true,
-                        transform: function (body, response) {
-                            if (response.headers['content-type'] === 'application/json') {
-                                response.body = JSON.parse(body);
-                            }
-                            return response;
+                    // console.log('link_down>>>',link_down);
+                    
+                    let optionsGetLink = {
+                        uri: 'https://apkpure.com' + link_down,
+                        transform: function (dataLink) {
+                            return cheerio.load(dataLink);
                         }
-                    }
-                    request.post(options2)
-                        .then(function (rs) {
+                    };
+                    rpdetail(optionsGetLink)
+                        .then(function (result2) {
+                            let $detail2 = result2;
+                            let hrefDown = $detail2('#download_link').attr('href');
+                            console.log('hrefDown>>>',hrefDown);
+                            let data = {
+                                "title": title,
+                                "title_slug": convertSlug(title),
+                                "thumbnail": avatar,
+                                "type": category,
+                                "tags": category,
+                                "view": "0",
+                                "content_short": title,
+                                "content_long": content_long,
+                                "source": "test",
+                                "status": "active",
+                                "created_by": "admin",
+                                "numWord": "0",
+                                "numChar": "0",
+                                "levels": "0",
+                                "atr1": 'https://apkpure.com' + link_down,
+                                "atr2": convertSlug(title),
+                                "atr3": mineType,
+                                "atr4": img_large,
+                                "atr5": fsize || '',
+                                "atr6": version || '',
+                                'atr7': listimg,
+                                "listSlide": listSlide,
+                                "atr8": title,
+                                "atr9": title,
+                                "atr10": hrefDown
+                            }
 
-
-
-                            console.log('INSERT THÀNH CÔNG', rs.body);
-                            //---------- TẢI FILE GAME ----------------
-
-                            let fileGame = title.replace(/\s/g, "_");
-                            fileGame = fileGame.trim()
-                            const pathDown = 'game_down/' + convertSlug(title) + mineType
-                            // kiểm tra tồn tại file
-                            console.log('pathDown', pathDown);
-
-                            let optionsDown = {
-                                // url: 'http://api.apksafety.com/api/articles/auto',
-                                url: 'http://apkverified.com/api/articles/upload_file_apk',
+                            let options2 = {
+                                url: 'http://api.apksafety.com/api/articles/auto',
+                                // url: ' http://localhost:1337/api/articles/auto',
                                 json: true,
-                                body: {
-                                    pathDown: pathDown,
-                                    link_down: link_down
-                                },
+                                body: data,
                                 resolveWithFullResponse: true,
                                 gzip: true,
                                 transform: function (body, response) {
@@ -296,14 +292,45 @@ module.exports = {
                                     return response;
                                 }
                             }
-                            // đẩy link down qua server apk
-                            request.post(optionsDown)
+
+                            request.post(options2)
                                 .then(function (rs) {
-                                    console.log('đẩy file thành công');
-        
+                                    console.log('INSERT THÀNH CÔNG', rs.body);
+                                    //---------- TẢI FILE GAME ----------------
+
+                                    // let fileGame = title.replace(/\s/g, "_");
+                                    // fileGame = fileGame.trim()
+                                    // const pathDown = 'game_down/' + convertSlug(title) + mineType
+                                    
+                                    // let optionsDown = {
+                                    //     // url: 'http://api.apksafety.com/api/articles/auto',
+                                    //     url: 'http://apkverified.com/api/articles/upload_file_apk',
+                                    //     json: true,
+                                    //     body: {
+                                    //         pathDown: pathDown,
+                                    //         link_down: link_down
+                                    //     },
+                                    //     resolveWithFullResponse: true,
+                                    //     gzip: true,
+                                    //     transform: function (body, response) {
+                                    //         if (response.headers['content-type'] === 'application/json') {
+                                    //             response.body = JSON.parse(body);
+                                    //         }
+                                    //         return response;
+                                    //     }
+                                    // }
+                                    // // đẩy link down qua server apk
+                                    // request.post(optionsDown)
+                                    //     .then(function (rs) {
+                                    //         console.log('đẩy file thành công');
+
+                                    //     })
+                                    resSuccess(res, '', [data])
                                 })
-                            resSuccess(res, '', [data])
+
                         })
+
+
 
                 })
         }

@@ -22,6 +22,8 @@ module.exports = {
         { api: '/api/image', action: 'getImage' },
         { api: '/api/getLink', action: 'getLink' },
         { api: 'post /api/articles/update_view', action: 'updateView' },
+        { api: 'get /api/articles/get_link_apk', action: 'getLinkAPKManual' },
+
     ],
     LIST_API_USER: [
         { api: 'post /api/users/login', action: 'login' },

@@ -13,7 +13,7 @@ module.exports = {
     type: 'string',
     tags: 'string',
     view: { type: 'string', columnType: 'int', defaultsTo: '0' },
-    time_up:  'string',
+    time_up: 'string',
     content_short: 'text',
     content_long: {
       type: 'string',
@@ -56,7 +56,11 @@ module.exports = {
       columnType: 'TEXT',
       allowNull: true,
     },
-    atr10: 'string',
+    atr10: {
+      type: 'string',
+      columnType: 'TEXT',
+      allowNull: true,
+    }
     // createdAt: { type: 'string', columnType: 'datetime', autoCreatedAt: true, },
     // updatedAt: { type: 'string', columnType: 'datetime', autoUpdatedAt: true, },
   },
