@@ -49,11 +49,19 @@ module.exports.http = {
     *                                                                          *
     ***************************************************************************/
 
-    // bodyParser: (function _configureBodyParser(){
-    //   var skipper = require('skipper');
-    //   var middlewareFn = skipper({ strict: true });
-    //   return middlewareFn;
-    // })(),
+    bodyParser: (function _configureBodyParser(){
+      // var skipper = require('skipper');
+      // var middlewareFn = skipper({ strict: true });
+      // return middlewareFn;
+
+      var opts = {limit:'50mb'};
+      var fn;
+  
+      // Default to built-in bodyParser:
+      fn = require('skipper');
+      return fn(opts);
+
+    })(),
 
   },
 

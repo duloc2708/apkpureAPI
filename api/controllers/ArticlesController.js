@@ -13,6 +13,20 @@ var progress = require('request-progress');
 var rpdetail = require('request-promise');
 
 module.exports = {
+    'uploadListSlide': (req, res) => {
+        let { data } = req.body
+        try {
+            data.map(item => {
+                let { filename, base64 } = item
+                saveFileBase64(base64, filename, pathUploadImage, 'jpg').then(response => {
+                    console.log('uploadListSlide', response);
+                })
+            })
+            resSuccess(res, '', [])
+        } catch (err) {
+            resError(res, err.toString())
+        }
+    },
     'getLinkAPKManual': (req, res) => {
         let { title_slug } = req.query
         console.log('getLinkAPKManual>>>', title_slug);
@@ -238,7 +252,7 @@ module.exports = {
                     content_long = content_long.replace(/<a [^>]+>[^<]*<\/a>/, '');
                     content_long = content_long.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
                     // console.log('link_down>>>',link_down);
-                    
+
                     let optionsGetLink = {
                         uri: 'https://apkpure.com' + link_down,
                         transform: function (dataLink) {
@@ -249,7 +263,7 @@ module.exports = {
                         .then(function (result2) {
                             let $detail2 = result2;
                             let hrefDown = $detail2('#download_link').attr('href');
-                            console.log('hrefDown>>>',hrefDown);
+                            console.log('hrefDown>>>', hrefDown);
                             let data = {
                                 "title": title,
                                 "title_slug": convertSlug(title),
@@ -301,7 +315,7 @@ module.exports = {
                                     // let fileGame = title.replace(/\s/g, "_");
                                     // fileGame = fileGame.trim()
                                     // const pathDown = 'game_down/' + convertSlug(title) + mineType
-                                    
+
                                     // let optionsDown = {
                                     //     // url: 'http://api.apksafety.com/api/articles/auto',
                                     //     url: 'http://apkverified.com/api/articles/upload_file_apk',

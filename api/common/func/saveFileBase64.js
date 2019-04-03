@@ -2,12 +2,12 @@ const request = require('request');
 const path = require('path');
 const fs = require('fs');
 let mkdirp = require('mkdirp');
-const saveFileBase64 = (data, filename, dest) => {
+const saveFileBase64 = (data, filename, dest, ext = '') => {
   return new Promise((resolve, reject) => {
     var imgdata = data
     let link = imgdata.replace('!', ',');
     let dataImg = link.split(';base64,').pop()
-    let type = link.split(';')[0].split('/')[1]
+    let type = ext || link.split(';')[0].split('/')[1]
     let imageName = dest + filename + '.' + type
     let buf = new Buffer(dataImg, 'base64');
     fs.writeFile(imageName, buf, (error) => {

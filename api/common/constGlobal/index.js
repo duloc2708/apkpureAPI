@@ -23,7 +23,9 @@ module.exports = {
         { api: '/api/getLink', action: 'getLink' },
         { api: 'post /api/articles/update_view', action: 'updateView' },
         { api: 'get /api/articles/get_link_apk', action: 'getLinkAPKManual' },
+        { api: 'post /api/articles/upload_list_slide', action: 'uploadListSlide' }
 
+        
     ],
     LIST_API_USER: [
         { api: 'post /api/users/login', action: 'login' },
