@@ -9,7 +9,10 @@ const resize = (path, format, width, height) => {
         transform = transform.toFormat(format)
     }
     if (width || height) {
-        transform = transform.resize(width, height)
+        transform =
+            transform.resize(width, height)
+                .max()
+                .ignoreAspectRatio()
     }
     return readStream.pipe(transform)
 }
