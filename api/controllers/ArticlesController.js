@@ -457,6 +457,16 @@ module.exports = {
             resError(res, err.toString())
         }
     },
+    'insertData': (req, res) => {
+        Articles.create(req.body).exec((errInsert, result) => {
+            if (errInsert) {
+                resError(res, errInsert)
+            }
+            else {
+                resSuccess(res, '', [])
+            }
+        });
+    },
     'testData': (req, res) => {
         //try {
         //     let cheerio = require('cheerio');
@@ -498,7 +508,7 @@ module.exports = {
 
         try {
             let cheerio = require('cheerio');
-            Articles.find({ where: { atr10: '' } }, (err, data) => {
+            Articles.find({ where: { atr6: '' } }, (err, data) => {
 
                 data.map((item) => {
                     let itemTemp = item
@@ -510,9 +520,27 @@ module.exports = {
 
                     var string = JSON.stringify(itemTemp);
                     var json = JSON.parse(string);
-                    Articles.update({ id: json.id }, json).exec((err, result) => {
-                        console.log('thành công', json.id);
-                    });
+                    let options2 = {
+                        url: 'http://66.42.62.21:1337/api/articles/insertData',
+                        json: true,
+                        body: json,
+                        resolveWithFullResponse: true,
+                        gzip: true,
+                        transform: function (body, response) {
+                            if (response.headers['content-type'] === 'application/json') {
+                                response.body = JSON.parse(body);
+                            }
+                            return response;
+                        }
+                    }
+                    rpdetail.post(options2)
+                        .then(function (rs) {
+                            console.log('thanh cong');
+                            
+                        })
+                    // Articles.update({ id: json.id }, json).exec((err, result) => {
+                    //     console.log('thành công', json.id);
+                    // });
                     // let $ = cheerio.load(cntent);
                     // var listimg = '';
                     // $("#main").find('.mpopup img').map(function () {
