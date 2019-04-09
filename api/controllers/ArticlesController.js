@@ -521,7 +521,7 @@ module.exports = {
                     var string = JSON.stringify(itemTemp);
                     var json = JSON.parse(string);
                     let options2 = {
-                        url: 'http://66.42.62.21:1337/api/articles/insertData',
+                        url: 'http://66.42.62.21:1337/api/articles/insert_data',
                         json: true,
                         body: json,
                         resolveWithFullResponse: true,
