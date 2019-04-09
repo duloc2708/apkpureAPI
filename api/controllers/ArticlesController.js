@@ -535,7 +535,7 @@ module.exports = {
                     }
                     rpdetail.post(options2)
                         .then(function (rs) {
-                            console.log('thanh cong');
+                            console.log('thanh cong', rs);
                             
                         })
                     // Articles.update({ id: json.id }, json).exec((err, result) => {
