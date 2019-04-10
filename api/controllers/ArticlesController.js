@@ -458,7 +458,7 @@ module.exports = {
         }
     },
     'insertData': (req, res) => {
-        Articles.create(req.body).exec((errInsert, result) => {
+        PageService.create(req.body).exec((errInsert, result) => {
             if (errInsert) {
                 resError(res, errInsert)
             }
@@ -508,16 +508,11 @@ module.exports = {
 
         try {
             let cheerio = require('cheerio');
-            Articles.find({ where: { atr6: '' } }, (err, data) => {
-
+            PageService.find({ where: { id:  {'!': null} } }, (err, data) => {
+                
                 data.map((item) => {
+
                     let itemTemp = item
-                    let content = itemTemp.content_long
-
-                    content = content.replace(/<a [^>]+>[^<]*<\/a>/, '');
-                    content = content.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
-                    itemTemp.content_long = content
-
                     var string = JSON.stringify(itemTemp);
                     var json = JSON.parse(string);
                     let options2 = {
@@ -533,11 +528,11 @@ module.exports = {
                             return response;
                         }
                     }
-                    rpdetail.post(options2)
-                        .then(function (rs) {
-                            console.log('thanh cong', rs);
-                            
-                        })
+                    // rpdetail.post(options2)
+                    //     .then(function (rs) {
+                    //         console.log('thanh cong', rs);
+
+                    //     })
                     // Articles.update({ id: json.id }, json).exec((err, result) => {
                     //     console.log('thành công', json.id);
                     // });
