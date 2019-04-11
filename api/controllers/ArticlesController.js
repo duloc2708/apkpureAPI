@@ -300,7 +300,6 @@ module.exports = {
                         .then(function (result2) {
                             let $detail2 = result2;
                             let hrefDown = $detail2('#download_link').attr('href');
-                            console.log('hrefDown>>>', hrefDown);
                             let data = {
                                 "title": title,
                                 "title_slug": convertSlug(title),
@@ -326,7 +325,7 @@ module.exports = {
                                 "listSlide": listSlide,
                                 "atr8": title,
                                 "atr9": title,
-                                "atr10": hrefDown
+                                "atr10": 'https://apkpure.com' + link_down
                             }
 
                             let options2 = {
