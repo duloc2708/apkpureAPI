@@ -508,8 +508,8 @@ module.exports = {
 
         try {
             let cheerio = require('cheerio');
-            PageService.find({ where: { id:  {'!': null} } }, (err, data) => {
-                
+            PageService.find({ where: { id: { '!': null } } }, (err, data) => {
+
                 data.map((item) => {
 
                     let itemTemp = item
@@ -767,6 +767,16 @@ module.exports = {
     'uploadAvatar': (req, res) => {
         try {
             const { image, filename } = req.body
+            saveFileBase64(image, filename, pathUploadImage).then(response => {
+                resSuccess(res, '', response)
+            })
+        } catch (err) {
+            resError(res, err.toString())
+        }
+    },
+    'uploadSlide': (req, res) => {
+        try {
+            const { image, filename } = req.body            
             saveFileBase64(image, filename, pathUploadImage).then(response => {
                 resSuccess(res, '', response)
             })
