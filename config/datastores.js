@@ -53,7 +53,7 @@ module.exports.datastores = {
 
     //=========================database DEV
     adapter: 'sails-mysql',
-    url: 'mysql://user_apk:1111@52.221.187.178:3306/db_apk_prod',
+    url: 'mysql://root:1111@localhost:3306/db_new_sql',
     charset: 'utf8',
     collation: 'utf8-general_ci'
     //=========================database PROD

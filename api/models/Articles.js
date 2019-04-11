@@ -60,6 +60,9 @@ module.exports = {
       type: 'string',
       columnType: 'TEXT',
       allowNull: true,
+    },
+    atr11: {
+      type: 'string'  // slide đại diện
     }
     // createdAt: { type: 'string', columnType: 'datetime', autoCreatedAt: true, },
     // updatedAt: { type: 'string', columnType: 'datetime', autoUpdatedAt: true, },

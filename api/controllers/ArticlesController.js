@@ -516,7 +516,7 @@ module.exports = {
                     var string = JSON.stringify(itemTemp);
                     var json = JSON.parse(string);
                     let options2 = {
-                        url: 'http://66.42.62.21:1337/api/articles/insert_data',
+                        url: 'http://api.apksafety.com/api/articles/insert_data',
                         json: true,
                         body: json,
                         resolveWithFullResponse: true,
@@ -528,11 +528,11 @@ module.exports = {
                             return response;
                         }
                     }
-                    // rpdetail.post(options2)
-                    //     .then(function (rs) {
-                    //         console.log('thanh cong', rs);
+                    rpdetail.post(options2)
+                        .then(function (rs) {
+                            console.log('thanh cong', rs);
 
-                    //     })
+                        })
                     // Articles.update({ id: json.id }, json).exec((err, result) => {
                     //     console.log('thành công', json.id);
                     // });
