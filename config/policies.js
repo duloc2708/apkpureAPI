@@ -23,5 +23,9 @@ module.exports.policies = {
   'PageServiceController': {
     'getDataPageService': true,
     'getSearchDetail': true
+  },
+  'BlogsController': {
+    'getDataBLogsUser': true
   }
+  
 };
