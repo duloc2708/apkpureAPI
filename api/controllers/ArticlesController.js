@@ -86,7 +86,7 @@ module.exports = {
             resError(res, err.toString())
         }
     },
-    'getDataBySearch': (req, res) => {
+    'getDataPostBySearch': (req, res) => {
         let { q } = req.query
         try {
             Articles.getDatastore().sendNativeQuery(`CALL artcles_getDataBySearch('${q}')`, [], (err, data) => {
@@ -665,7 +665,7 @@ module.exports = {
             resError(res, err.toString())
         }
     },
-    'getBlogDetail': (req, res) => {
+    'getPostDetail': (req, res) => {
         let { title_slug } = req.query
         try {
             Articles.getDatastore().sendNativeQuery(`CALL artcles_getBlogDetail('${title_slug}')`, [], (err, data) => {
@@ -676,7 +676,7 @@ module.exports = {
             resError(res, err.toString())
         }
     },
-    'getBlogBySection': (req, res) => {
+    'getPostBySection': (req, res) => {
         let { type } = req.query
         try {
             Articles.getDatastore().sendNativeQuery(`CALL artcles_getBlogBySection('${type}')`, [], (err, data) => {
@@ -754,7 +754,7 @@ module.exports = {
     },
     'addArticles': (req, res) => {
         try {
-            let { title, list_image, title_slug, id, tags } = req.body
+            let { title, list_image, title_slug, id, tags } = req.body            
             //========TRƯỜNG HỢP THÊM MỚI
             if (!id) {
                 Articles.find({ title: title }).exec((err, usr) => {
@@ -772,7 +772,7 @@ module.exports = {
                 //======== TRƯỜNG HỢP CẬP NHẬT
             } else {
                 Articles.update({ id: id }, req.body).exec((err, result) => {
-                    if (err) return resError(res, errInsert)
+                    if (err) return resError(res, err)
                     resSuccess(res, '', [])
                 });
             }
