@@ -52,7 +52,9 @@ module.exports = {
         { api: 'get /api/video/video_by_section', action: 'getVideoBySection' },
         { api: 'post /api/video/add', action: 'addVideo' },
         { api: 'post /api/video/update', action: 'updateVideo' },
-        { api: '/api/video/delete', action: 'deleteVideo' }
+        { api: '/api/video/delete', action: 'deleteVideo' },
+        { api: 'get /api/video/get_video_detail', action: 'getVideoDetail' },
+
     ],
     LIST_API_PAGE_SERVICE: [
         { api: 'get /api/pageservice/get_service_detail', action: 'getSearchDetail' },

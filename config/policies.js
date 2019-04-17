@@ -18,7 +18,7 @@ module.exports.policies = {
     'updateView': true,
     'getDataPageService': true,
     'getLinkAPKManual': true,
-    'insertData':true
+    'insertData': true
   },
   'PageServiceController': {
     'getDataPageService': true,
@@ -28,7 +28,8 @@ module.exports.policies = {
     'getDataBLogsUser': true
   },
   'VideoController': {
-    'getVideoBySection': true
+    'getVideoBySection': true,
+    'getVideoDetail': true
   }
-  
+
 };

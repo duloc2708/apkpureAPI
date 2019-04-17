@@ -69,6 +69,17 @@ module.exports = {
             resError(res, err.toString())
         }
     },
+    'getVideoDetail': (req, res) => {
+        let { title_slug } = req.query
+        try {
+            Video.getDatastore().sendNativeQuery(`CALL video_getVideoDetail('${title_slug}')`, [], (err, data) => {
+                if (err) return resError(res, err)
+                resSuccess(res, '', data.rows[0])
+            });
+        } catch (err) {
+            resError(res, err.toString())
+        }
+    },
 
 };
 
