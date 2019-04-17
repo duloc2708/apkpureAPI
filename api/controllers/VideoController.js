@@ -16,25 +16,58 @@ module.exports = {
         });
     },
     'addVideo': (req, res) => {
-        Video.create(req.body).exec((err, result) => {
-            if (err) return resError(res, err)
-            resSuccess(res)
-        });
+        // Video.create(req.body).exec((err, result) => {
+        //     if (err) return resError(res, err)
+        //     resSuccess(res)
+        // });
+        let { title, id } = req.body
+        //========TRƯỜNG HỢP THÊM MỚI
+        if (!id) {
+            Video.find({ title: title }).exec((err, usr) => {
+                if (err) return resError(res, err)
+                if (usr.length > 0) return resError(res, 'TITLE_EXISTS')
+                Video.create(req.body).exec((errInsert, result) => {
+                    if (errInsert) {
+                        resError(res, errInsert)
+                    }
+                    else {
+                        resSuccess(res, '', [])
+                    }
+                });
+            });
+            //======== TRƯỜNG HỢP CẬP NHẬT
+        } else {
+            Video.update({ id: id }, req.body).exec((err, result) => {
+                if (err) return resError(res, err)
+                resSuccess(res, '', [])
+            });
+        }
     },
     'updateVideo': (req, res) => {
-        Video.update({ id: 1 }, req.body).exec((err, result) => {
+        Video.update({ id: req.body.id }, req.body).exec((err, result) => {
             if (err) return resError(res, err)
             resSuccess(res)
         });
     },
     'deleteVideo': (req, res) => {
-        let { id } = req.query        
+        let { id } = req.query
         Video.destroy({
             id: { in: [id] }
         }).exec((err, result) => {
             if (err) return resError(res, err)
             resSuccess(res)
         });
+    },
+    'getVideoBySection': (req, res) => {
+        let { type } = req.query
+        try {
+            Video.getDatastore().sendNativeQuery(`CALL video_getVideoBySection('${type}')`, [], (err, data) => {
+                if (err) return resError(res, err)
+                resSuccess(res, '', data.rows[0])
+            });
+        } catch (err) {
+            resError(res, err.toString())
+        }
     },
 
 };

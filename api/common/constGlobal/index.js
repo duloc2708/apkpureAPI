@@ -49,6 +49,7 @@ module.exports = {
     ],
     LIST_API_VIDEO: [
         { api: 'get /api/video', action: 'getDataVideo' },
+        { api: 'get /api/video/video_by_section', action: 'getVideoBySection' },
         { api: 'post /api/video/add', action: 'addVideo' },
         { api: 'post /api/video/update', action: 'updateVideo' },
         { api: '/api/video/delete', action: 'deleteVideo' }

@@ -26,6 +26,9 @@ module.exports.policies = {
   },
   'BlogsController': {
     'getDataBLogsUser': true
+  },
+  'VideoController': {
+    'getVideoBySection': true
   }
   
 };
