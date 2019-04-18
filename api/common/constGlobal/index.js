@@ -11,7 +11,7 @@ module.exports = {
         { api: 'get /api/post/getfileapk', action: 'getFileAPK' },
         { api: 'get /api/post/get_post_by_section', action: 'getPostBySection' },
         { api: 'get /api/post', action: 'getDataArticles' },
-        { api: 'post /api/post/auto', action: 'autoAddArticles' },
+        { api: 'post /api/articles/auto', action: 'autoAddArticles' },
         { api: 'post /api/post/add', action: 'addArticles' },
         { api: 'post /api/post/update', action: 'updateArticles' },
         { api: '/api/post/delete', action: 'deleteArticles' },
