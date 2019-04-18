@@ -25,7 +25,8 @@ module.exports = {
         { api: 'post /api/post/update_view', action: 'updateView' },
         { api: 'get /api/post/get_link_apk', action: 'getLinkAPKManual' },
         { api: 'post /api/post/upload_list_slide', action: 'uploadListSlide' },
-        { api: 'post /api/post/insert_data', action: 'insertData' }        
+        { api: 'post /api/post/insert_data', action: 'insertData' },
+        { api: 'post /api/post/update_slide', action: 'updateCheckSlide' }
     ],
     LIST_API_BLOGS: [
         { api: 'get /api/blogs/get_data_user', action: 'getDataBLogsUser' },

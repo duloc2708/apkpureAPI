@@ -76,6 +76,16 @@ module.exports = {
             resError(res, err.toString())
         }
     },
+    'updateCheckSlide': (req, res) => {
+        let { data } = req.body
+        try {
+            Articles.update({ id: data.id }, data).exec((err, result) => {
+                resSuccess(res, '', [])
+            });
+        } catch (err) {
+            resError(res, err.toString())
+        }
+    },
     'updateView': (req, res) => {
         let { obj } = req.body
         try {
