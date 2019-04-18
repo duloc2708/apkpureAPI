@@ -152,6 +152,8 @@ module.exports = {
                     });
                     content_long = content_long.replace(/<a [^>]+>[^<]*<\/a>/, '');
                     content_long = content_long.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
+                    title = title + ` APK for Android - Download Latest version 0.0.1`
+
                     let data = {
                         "title": title,
                         "title_slug": convertSlug(title),
