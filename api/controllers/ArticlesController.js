@@ -296,6 +296,7 @@ module.exports = {
                             return cheerio.load(dataLink);
                         }
                     };
+                    title = title + ` APK for Android - Download Latest version ${version}`
                     rpdetail(optionsGetLink)
                         .then(function (result2) {
                             let $detail2 = result2;
@@ -754,7 +755,7 @@ module.exports = {
     },
     'addArticles': (req, res) => {
         try {
-            let { title, list_image, title_slug, id, tags } = req.body            
+            let { title, list_image, title_slug, id, tags } = req.body
             //========TRƯỜNG HỢP THÊM MỚI
             if (!id) {
                 Articles.find({ title: title }).exec((err, usr) => {
