@@ -63,7 +63,11 @@ module.exports = {
     },
     atr11: {
       type: 'string'  // slide đại diện
+    },
+    slide: {
+      type: 'string'  // check slide
     }
+    
     // createdAt: { type: 'string', columnType: 'datetime', autoCreatedAt: true, },
     // updatedAt: { type: 'string', columnType: 'datetime', autoUpdatedAt: true, },
   },
