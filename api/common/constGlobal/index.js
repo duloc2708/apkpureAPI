@@ -38,6 +38,7 @@ module.exports = {
         { api: '/api/blogs/delete', action: 'deleteBlogs' },
         { api: '/api/blogs/image', action: 'getBlogsImage' },
         { api: 'post /api/blogs/update_view', action: 'updateBlogsView' },
+        { api: 'post /api/blogs/get_list_game_recent', action: 'getListGameRecent' },
     ],
     LIST_API_USER: [
         { api: 'post /api/users/login', action: 'login' },

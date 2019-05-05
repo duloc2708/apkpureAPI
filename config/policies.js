@@ -25,7 +25,8 @@ module.exports.policies = {
     'getSearchDetail': true
   },
   'BlogsController': {
-    'getDataBLogsUser': true
+    'getDataBLogsUser': true,
+    'getListGameRecent':true
   },
   'VideoController': {
     'getVideoBySection': true,

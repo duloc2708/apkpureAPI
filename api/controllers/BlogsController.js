@@ -92,6 +92,20 @@ module.exports = {
             resError(res, err.toString())
         }
     },
+    'getListGameRecent': (req, res) => {
+        let { gameother } = req.body
+        let data = gameother.split(',')
+
+        try {
+            Articles.find({ title: data }).exec((err, data) => {
+                if (err) return resError(res, err)
+                resSuccess(res, '', data)
+            })
+        } catch (err) {
+            resError(res, err.toString())
+        }
+    },
+    
     'addBlogs': (req, res) => {
         try {
             let { title, list_image, title_slug, id, tags } = req.body
