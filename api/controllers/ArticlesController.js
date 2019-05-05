@@ -32,8 +32,9 @@ module.exports = {
         try {
             Articles.getDatastore().sendNativeQuery(`CALL artcles_getBlogDetail('${title_slug}')`, [], (err, data) => {
                 if (err) return resError(res, err)
+                
                 let item = data.rows[0]
-                let link = item[0]["link down"]
+                let link = item[0]["atr10"]
                 let title_slug = item[0]["title_slug"]
                 let optionsDown = {
                     uri: link,
