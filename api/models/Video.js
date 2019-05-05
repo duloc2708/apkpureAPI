@@ -12,6 +12,7 @@ module.exports = {
     link: 'string',
     desciption: 'string',
     tags: 'string',
+    gameother: 'string',
     thumbnail: 'string',
     levels: { type: 'string', columnType: 'int', defaultsTo: '0' },
     list_play: 'string'
