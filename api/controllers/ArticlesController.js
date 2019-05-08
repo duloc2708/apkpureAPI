@@ -32,7 +32,7 @@ module.exports = {
         try {
             Articles.getDatastore().sendNativeQuery(`CALL artcles_getBlogDetail('${title_slug}')`, [], (err, data) => {
                 if (err) return resError(res, err)
-                
+
                 let item = data.rows[0]
                 let link = item[0]["atr10"]
                 let title_slug = item[0]["title_slug"]
@@ -310,6 +310,8 @@ module.exports = {
                         }
                     };
                     title = title + ` APK for Android - Download Latest version ${version}`
+                    let nsx = $detail('.details-author').find('p').text();
+                    let atr9 = `Download ${title} APK latest ${version} for Android. ${title} is the property and trademark from the developer ${nsx}`
                     rpdetail(optionsGetLink)
                         .then(function (result2) {
                             let $detail2 = result2;
@@ -338,7 +340,7 @@ module.exports = {
                                 'atr7': listimg,
                                 "listSlide": listSlide,
                                 "atr8": title,
-                                "atr9": title,
+                                "atr9": atr9,
                                 "atr10": 'https://apkpure.com' + link_down
                             }
 
