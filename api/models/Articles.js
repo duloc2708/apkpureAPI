@@ -29,6 +29,11 @@ module.exports = {
     numWord: { type: 'string', columnType: 'int', defaultsTo: '0' },
     numChar: { type: 'string', columnType: 'int', defaultsTo: '0' },
     levels: 'string',
+    listversion: {
+      type: 'string',
+      columnType: 'TEXT',
+      allowNull: true,
+    },
     atr1: {
       type: 'string',
       columnName: 'link down'
