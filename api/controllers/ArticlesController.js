@@ -110,7 +110,6 @@ module.exports = {
     },
     'getLink': (req, res) => {
         let { url } = req.body
-        url = 'https://apkpure.com/breakneck/com.pikpok.fr.play'
         if (url.indexOf('play.google') != -1) {
             var optionsDetail = {
                 uri: url,
