@@ -36,6 +36,8 @@ module.exports = {
                 let link = item[0]["atr10"]
                 let title_slug = item[0]["title_slug"]
                 if (link.indexOf('download?from=details') == -1) {
+                    console.log('link>..',link);
+                    
                     resSuccess(res, '', { url_down: link })
                 } else {
                     let optionsDown = {
