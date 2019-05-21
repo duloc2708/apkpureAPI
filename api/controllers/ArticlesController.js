@@ -32,45 +32,47 @@ module.exports = {
         try {
             Articles.getDatastore().sendNativeQuery(`CALL artcles_getBlogDetail('${title_slug}')`, [], (err, data) => {
                 if (err) return resError(res, err)
-
                 let item = data.rows[0]
                 let link = item[0]["atr10"]
                 let title_slug = item[0]["title_slug"]
-                let optionsDown = {
-                    uri: link,
-                    transform: function (dataLink) {
-                        return cheerio.load(dataLink);
-                    }
-                };
-                rpdetail(optionsDown)
-                    .then(function (result2) {
-                        let $detail2 = result2;
-                        let hrefDown = $detail2('#download_link').attr('href');
-                        var pre = '----';
-                        const downloadManager = function (url, filename) {
+                if (link.indexOf('download?from=details') == -1) {
+                    resSuccess(res, '', { url_down: link })
+                } else {
+                    let optionsDown = {
+                        uri: link,
+                        transform: function (dataLink) {
+                            return cheerio.load(dataLink);
+                        }
+                    };
+                    rpdetail(optionsDown)
+                        .then(function (result2) {
+                            let $detail2 = result2;
+                            let hrefDown = $detail2('#download_link').attr('href');
+                            var pre = '----';
+                            const downloadManager = function (url, filename) {
 
-                            progress(request(url), {
-                                throttle: 500
-                            }).on('progress', function (state) {
-                                process.stdout.write(pre + '' + (Math.round(state.percent * 100)) + "%");
-                            })
-                                .on('error', function (err) {
-                                    console.log('error :( ' + err);
+                                progress(request(url), {
+                                    throttle: 500
+                                }).on('progress', function (state) {
+                                    process.stdout.write(pre + '' + (Math.round(state.percent * 100)) + "%");
                                 })
-                                // .on('end', function () {
-                                //     let res= this
-                                //     console.log("this>>>>>", res);
-                                //     console.log(pre + '100% \n Download Completed');
-                                // })
-                                .on('end', function (err, resDown, body) {
-                                    let dataRes = item[0]
-                                    dataRes.url_down = this.uri.href
-                                    resSuccess(res, '', dataRes)
-                                });
-                        };
-                        downloadManager(hrefDown, '');
-                    })
-
+                                    .on('error', function (err) {
+                                        console.log('error :( ' + err);
+                                    })
+                                    // .on('end', function () {
+                                    //     let res= this
+                                    //     console.log("this>>>>>", res);
+                                    //     console.log(pre + '100% \n Download Completed');
+                                    // })
+                                    .on('end', function (err, resDown, body) {
+                                        let dataRes = item[0]
+                                        dataRes.url_down = this.uri.href
+                                        resSuccess(res, '', dataRes)
+                                    });
+                            };
+                            downloadManager(hrefDown, '');
+                        })
+                }
 
             });
         } catch (err) {
