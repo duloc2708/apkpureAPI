@@ -29,14 +29,16 @@ module.exports = {
     },
     'getLinkAPKManual': (req, res) => {
         let { title_slug } = req.query
+        console.log('getLinkAPKManual>..',title_slug);
+
         try {
             Articles.getDatastore().sendNativeQuery(`CALL artcles_getBlogDetail('${title_slug}')`, [], (err, data) => {
                 if (err) return resError(res, err)
                 let item = data.rows[0]
                 let link = item[0]["atr10"]
                 let title_slug = item[0]["title_slug"]
+                console.log('link>..',link);
                 if (link.indexOf('download?from=details') == -1) {
-                    console.log('link>..',link);
                     
                     resSuccess(res, '', { url_down: link })
                 } else {
