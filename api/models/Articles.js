@@ -38,10 +38,8 @@ module.exports = {
       type: 'string',
       columnName: 'link down'
     },
-    atr2: {
-      type: 'string',
-      columnName: 'url'
-    },
+    atr2: 'string',
+    url: 'string',
     atr3: 'string',
     atr4: 'string',
     atr5: 'string',
@@ -72,7 +70,7 @@ module.exports = {
     slide: {
       type: 'string'  // check slide
     }
-    
+
     // createdAt: { type: 'string', columnType: 'datetime', autoCreatedAt: true, },
     // updatedAt: { type: 'string', columnType: 'datetime', autoUpdatedAt: true, },
   },
