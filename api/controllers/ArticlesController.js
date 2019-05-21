@@ -33,7 +33,7 @@ module.exports = {
 
         try {
             Articles.getDatastore().sendNativeQuery(`CALL artcles_getBlogDetail('${title_slug}')`, [], (err, data) => {
-                console.log('res>..',res);
+                console.log('err>..',err);
                 console.log('data>..',data);
 
                 if (err) return resError(res, err)
