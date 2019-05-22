@@ -27,6 +27,7 @@ module.exports = {
             resError(res, err.toString())
         }
     },
+
     'getLinkAPKManual': (req, res) => {
         let { title_slug } = req.query
         try {
@@ -94,6 +95,17 @@ module.exports = {
         try {
             Articles.update({ id: obj.id }, obj).exec((err, result) => {
                 resSuccess(res, '', [])
+            });
+        } catch (err) {
+            resError(res, err.toString())
+        }
+    },
+    'getDataByType': (req, res) => {
+        let { type } = req.query
+        try {
+            Articles.getDatastore().sendNativeQuery(`CALL artcles_getDataByType('${type}')`, [], (err, data) => {
+                if (err) return resError(res, err)
+                resSuccess(res, '', data.rows[0])
             });
         } catch (err) {
             resError(res, err.toString())

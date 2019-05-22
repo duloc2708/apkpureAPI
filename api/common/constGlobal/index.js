@@ -6,6 +6,7 @@ module.exports = {
         { api: '/api/listtype/delete', action: 'deleteListType' }
     ],
     LIST_API_ARTICLES: [
+        { api: 'get /api/post/get_data_by_type', action: 'getDataByType' },
         { api: 'get /api/post/get_data_by_search', action: 'getDataPostBySearch' },
         { api: 'get /api/post/get_post_detail', action: 'getPostDetail' },
         { api: 'get /api/post/getfileapk', action: 'getFileAPK' },

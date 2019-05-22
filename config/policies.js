@@ -5,6 +5,7 @@ module.exports.policies = {
     'login': true
   },
   'ArticlesController': {
+    'getDataByType':true,
     'autoAddArticles': true,
     'getPostBySection': true,
     'getPostDetail': true,
