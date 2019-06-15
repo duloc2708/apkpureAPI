@@ -481,6 +481,7 @@ module.exports = {
             form: objData
         }, function (error, response, body) {
             console.log('data>>>>', body);
+            resSuccess(res, '', body)
         });
 
     },
