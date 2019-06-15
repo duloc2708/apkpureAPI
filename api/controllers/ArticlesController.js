@@ -469,6 +469,8 @@ module.exports = {
     },
     'getApk': (req, res) => {
         let { id } = req.body
+        console.log(' req.body', req.body);
+        
         let idGame = id
         var options = {
             uri: `https://apps.evozi.com/apk-downloader/?id=${idGame}`,
