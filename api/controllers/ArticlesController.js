@@ -469,12 +469,14 @@ module.exports = {
     },
     'getApk': (req, res) => {
         let { id } = req.body
-        console.log(' req.body', req.body);
         
         let idGame = id
+        console.log('idGame>>>>',idGame);
+
         var options = {
             uri: `https://apps.evozi.com/apk-downloader/?id=${idGame}`,
             transform: function (body) {
+                console.log('body',body);
                 return cheerio.load(body);
             }
         };
