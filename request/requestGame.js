@@ -11,7 +11,7 @@ let idGame = 'com.rovio.angrybirdsrio'
 var options = {
   uri: `https://apps.evozi.com/apk-downloader/?id=${idGame}`,
   transform: function (body) {
-    // console.log('body', body)
+    console.log('body', body)
     return cheerio.load(body);
   }
 };
