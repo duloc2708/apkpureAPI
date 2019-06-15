@@ -23,6 +23,7 @@ module.exports = {
         { api: '/api/post/testData', action: 'testData' },
         { api: '/api/image', action: 'getImage' },
         { api: '/api/getLink', action: 'getLink' },
+        { api: '/api/getapk', action: 'getApk' },
         { api: 'post /api/post/update_view', action: 'updateView' },
         { api: 'get /api/post/get_link_apk', action: 'getLinkAPKManual' },
         { api: 'post /api/post/upload_list_slide', action: 'uploadListSlide' },

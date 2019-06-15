@@ -15,6 +15,7 @@ module.exports.policies = {
     'testData': true,
     'getImage': true,
     'getLink': true,
+    'getApk': true,
     'getDataPostBySearch': true,
     'updateView': true,
     'getDataPageService': true,
