@@ -53,8 +53,10 @@ exports.Data = function () {
     console.log('objData..>', objData);
 
     cloudscraper.post(options2).then((result2) => {
-      console.log('result2..>', result2);
-
+      let data = JSON.parse(result2)
+      console.log('data..>', data);
+      
+      
     })
 
   })

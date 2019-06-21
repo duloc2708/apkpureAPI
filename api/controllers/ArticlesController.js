@@ -516,9 +516,7 @@ module.exports = {
             console.log('objData..>', objData);
 
             cloudscraper.post(options2).then((result2) => {
-                console.log('result2..>', result2);
-                resSuccess(res, '', result2)
-
+                resSuccess(res, '', JSON.parse(result2))
             })
         })
 
