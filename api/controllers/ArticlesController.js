@@ -476,9 +476,9 @@ module.exports = {
         };
         cloudscraper.get(options).then(function (result) {
             let $detail = cheerio.load(result);
-    
+
             let html = $detail('.container:nth-child(2)').html()
-            
+
             var scripttext = html
             var re = /<script\b[^>]*>([\s\S]*?)<\/script>/gm;
             var match;
@@ -509,9 +509,17 @@ module.exports = {
             let objData = JSON.parse(objTemp)
             objData[Object.keys(objData)[0]] = idGame;
             objData[Object.keys(objData)[2]] = param1;
-            console.log('objData>>>',objData);
+            var options2 = {
+                uri: `https://api-apk.evozi.com/download`,
+                formData: objData
+            };
+            console.log('objData..>', objData);
 
-            resSuccess(res, '', objData)
+            cloudscraper.post(options2).then((result2) => {
+                console.log('result2..>', result2);
+                resSuccess(res, '', result2)
+
+            })
         })
 
     },

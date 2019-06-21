@@ -26,7 +26,6 @@ exports.Data = function () {
       }
     }
     // console.log('stringScript', stringScript);
-
     let objText = stringScript.substring(0, stringScript.lastIndexOf('$.ajax({'));
     let objTemp = objText.match(/[^{]*$/)[0];
     objTemp = '{' + objTemp.substring(0, objTemp.lastIndexOf(',')) + '}'
@@ -47,7 +46,17 @@ exports.Data = function () {
     objData[Object.keys(objData)[0]] = idGame;
     objData[Object.keys(objData)[2]] = param1;
 
+    var options2 = {
+      uri: `https://api-apk.evozi.com/download`,
+      formData: objData
+    };
     console.log('objData..>', objData);
+
+    cloudscraper.post(options2).then((result2) => {
+      console.log('result2..>', result2);
+
+    })
+
   })
     .catch(console.error);
   return lstArticles;
