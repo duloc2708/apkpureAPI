@@ -16,8 +16,8 @@
     "sails-hook-grunt": "^3.1.0",
     "sails-hook-orm": "^2.1.1",
     "sails-hook-sockets": "^1.5.5",
-    "sails-mysql": "1.0.1",
-    "sails-postgresql": "^1.0.2"
+    "sails-mysql": "3.0.0",
+    "sails-postgresql": "^5.0.1"
   },
   "devDependencies": {
     "@sailshq/eslint": "^4.19.3",
